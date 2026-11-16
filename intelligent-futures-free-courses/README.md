@@ -7,6 +7,7 @@ Free lessons by **Dr. Janet Bih Shufor**, Intelligent Futures. Paid courses are 
 | `bjs-academy-free-preview/` | Free preview of BJS Academy, as used on intelligentfutures.tech/courses. Open: Python Liftoff Module 1 and Prompt to Agent Module 1, with their lab notebooks |
 | `free-lesson-video-scripts/` | Video scripts for the 7 free BJS Academy lessons |
 | `free-school-lessons/` | 7 free data science and AI lessons for schools (ages 5-18), with Olympic and world population datasets |
+| `colab-notebooks/` | 6 Google Colab notebooks that build real models with Python, from linear regression to a neural network |
 
 ## How to use
 
