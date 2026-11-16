@@ -1,6 +1,6 @@
 # Intelligent Futures Free Courses
 
-Free lessons by **Dr. Janet Bih Shufor**, Intelligent Futures. Paid courses are not included here.
+Free lessons by **Dr. Bih Janet Shufor**, Intelligent Futures. Paid courses are not included here.
 
 | Folder | What it is |
 |---|---|

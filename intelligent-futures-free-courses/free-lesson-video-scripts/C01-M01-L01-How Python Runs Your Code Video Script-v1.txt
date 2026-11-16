@@ -1,11 +1,11 @@
 How Python Runs Your Code
-BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+BJS Academy · Dr. Bih Janet Shufor · Learn AI. Shape tomorrow.
 Narration script: 9 slides, about 1524 words (about 10 minutes at a calm pace).
 Read each slide’s text while that slide is on screen.
 
 --- Slide 1: How Python runs your code ---
 
-Welcome to Python Liftoff. I’m Dr. Janet Bih Shufor, and this is Module 1, Lesson 1: How Python runs your code.
+Welcome to Python Liftoff. I’m Dr. Bih Janet Shufor, and this is Module 1, Lesson 1: How Python runs your code.
 
 In the next few minutes you’ll see what actually happens when you press Run, learn the handful of grammar rules Python insists on, and practise reading an error message calmly instead of panicking. You don’t need any programming experience for this lesson. If you can type and copy text, you can follow along.
 

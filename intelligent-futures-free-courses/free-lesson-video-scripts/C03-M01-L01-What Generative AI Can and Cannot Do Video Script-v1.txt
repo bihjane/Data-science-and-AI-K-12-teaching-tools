@@ -1,11 +1,11 @@
 What Generative AI Can and Cannot Do
-BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+BJS Academy · Dr. Bih Janet Shufor · Learn AI. Shape tomorrow.
 Narration script: 10 slides, about 1638 words (about 11 minutes at a calm pace).
 Read each slide’s text while that slide is on screen.
 
 --- Slide 1: What generative AI can and cannot do ---
 
-Welcome to Prompt to Agent. I’m Dr. Janet Bih Shufor, and this is Module 1, Lesson 1: What generative AI can and cannot do.
+Welcome to Prompt to Agent. I’m Dr. Bih Janet Shufor, and this is Module 1, Lesson 1: What generative AI can and cannot do.
 
 You’ve almost certainly used an AI chat tool by now, to draft an email, summarise a document or answer a question. But most people use these tools without really knowing how they produce an answer, why the answer can change each time, or when to trust it.
 

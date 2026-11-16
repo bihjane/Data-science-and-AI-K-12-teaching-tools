@@ -144,4 +144,4 @@ Teachers adapt one Lab notebook to their subject, students and local data, then 
 Starter notebook: [Open in Colab](https://colab.research.google.com/github/bihjane/data-science-and-ai-k-12-teaching-tools/blob/main/intelligent-futures-free-courses/colab-notebooks/01_first_model_linear_regression.ipynb)
 
 ---
-*Intelligent Futures · Dr. Janet Bih Shufor · Free for classroom use with attribution.*
+*Intelligent Futures · Dr. Bih Janet Shufor · Free for classroom use with attribution.*

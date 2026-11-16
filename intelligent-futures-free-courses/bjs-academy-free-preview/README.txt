@@ -1,5 +1,5 @@
 BJS ACADEMY FREE PREVIEW  -  Learn AI. Shape tomorrow.
-Courses by Dr. Janet Bih Shufor
+Courses by Dr. Bih Janet Shufor
 Free preview, version 5
 
 WHAT THIS IS

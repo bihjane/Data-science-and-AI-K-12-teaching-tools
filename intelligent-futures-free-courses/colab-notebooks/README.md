@@ -27,4 +27,4 @@ Then choose **File > Save a copy in Drive** so students keep their own work.
 olympics.com (100 m winning times), United Nations (world population milestones), Gapminder via the plotly library (life expectancy and income, 142 countries), scikit-learn built-in datasets (iris flowers, handwritten digits), and optionally the MNIST dataset through TensorFlow.
 
 ---
-*Intelligent Futures · Dr. Janet Bih Shufor · Free for classroom use with attribution.*
+*Intelligent Futures · Dr. Bih Janet Shufor · Free for classroom use with attribution.*
