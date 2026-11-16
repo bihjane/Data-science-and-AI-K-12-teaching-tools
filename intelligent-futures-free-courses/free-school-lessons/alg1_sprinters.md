@@ -1,7 +1,7 @@
 # 2.1 Are Sprinters Getting Faster?
 **Intelligent Futures · Free Trial Lesson** · From the course *Data Science in Algebra 1*
 
-**Grade band:** Grades 8-10 · Algebra 1 / Integrated Math 1  
+**Grade band:** Ages 13-16 · Algebra 1 or equivalent  
 **Time:** One 50-minute period  
 **Standards:** CCSS HSS-ID.B.6, HSS-ID.C.7, HSF-IF.B.4
 
@@ -84,7 +84,7 @@ Write the model, interpret the slope in a sentence with units, and name one reas
 | 2020 | 9.8 | Marcell Jacobs |
 | 2024 | 9.79 | Noah Lyles |
 
-Sources: U.S. Census Bureau decennial counts (census.gov); Olympic results (olympics.com).
+Sources: United Nations population milestones (UN Department of Economic and Social Affairs); Olympic results (olympics.com).
 
 ---
 © 2026 Intelligent Futures (intelligentfutures.tech). Free trial lesson: you may copy and use it with your own students. The full course includes slides, editable handouts, assessments and teacher coaching.

@@ -1,9 +1,9 @@
-# Is Our Classroom Breathing? CO₂ Data (Grades 6-12)
-**Intelligent Futures · Free Trial Lesson** · From the course *Data Explorers K-12*
+# Is Our Classroom Breathing? CO₂ Data (ages 11-18)
+**Intelligent Futures · Free Trial Lesson** · From the course *Data Explorers for Schools*
 
-**Grade band:** Grades K-12 · Science, Social Studies, ELA, Health/PE, CTE, Elementary  
+**Grade band:** Ages 5-18 · Science, humanities, languages, health, business and primary  
 **Time:** Data collection over one class/day + one 50-minute analysis period  
-**Standards:** NGSS MS-ESS3-5, HS-ESS3-6 · VA DS
+**Standards:** NGSS MS-ESS3-5, HS-ESS3-6
 
 ## Why students need the math
 Students want to know when the room gets 'stuffy' and whether opening the door helps; the Keeling curve then shows a rising trend plus a yearly wave (linear + periodic).

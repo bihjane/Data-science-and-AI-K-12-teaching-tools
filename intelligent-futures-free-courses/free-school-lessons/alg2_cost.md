@@ -1,9 +1,9 @@
 # 3.1 Find the Bottom: Cost Functions Are Parabolas
 **Intelligent Futures · Free Trial Lesson** · From the course *Data Science in Algebra 2*
 
-**Grade band:** Grades 10-12 · Algebra 2 / Integrated Math 3  
+**Grade band:** Ages 15-18 · Algebra 2 or equivalent  
 **Time:** One 50-60 minute period  
-**Standards:** CCSS HSF-IF.C.8a, HSF-BF.A.1 · VA DS: models & predictions
+**Standards:** CCSS HSF-IF.C.8a, HSF-BF.A.1
 
 ## Why students need the math
 To let a computer 'learn' the best w in height = w × arm span, we need a single number for error, and that number traces a parabola.

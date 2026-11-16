@@ -1,9 +1,9 @@
 # 2.1 Train Your First Model in 15 Minutes
 **Intelligent Futures · Free Trial Lesson** · From the course *AI and Machine Learning Foundations*
 
-**Grade band:** Grades 9-12 · CS, CTE, Data Science electives  
+**Grade band:** Ages 14-18 · Computing, data science and technical courses  
 **Time:** One 50-minute period  
-**Standards:** AI4K12 Big Idea 3 · VA DS: ML
+**Standards:** AI4K12 Big Idea 3
 
 ## Why students need the math
 To sort cafeteria waste automatically, we need a model that learned from examples.

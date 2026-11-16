@@ -1,7 +1,7 @@
-# Teach the Computer to Sort (Grades 2-5)
-**Intelligent Futures · Free Trial Lesson** · From the course *Data Explorers K-12*
+# Teach the Computer to Sort (ages 7-11)
+**Intelligent Futures · Free Trial Lesson** · From the course *Data Explorers for Schools*
 
-**Grade band:** Grades K-12 · Science, Social Studies, ELA, Health/PE, CTE, Elementary  
+**Grade band:** Ages 5-18 · Science, humanities, languages, health, business and primary  
 **Time:** Two 30-40 minute sessions  
 **Standards:** AI4K12 Big Idea 3 · CCSS 2.MD.D.10
 
@@ -43,7 +43,7 @@ Draw the computer's mistake and tell how you fixed it.
 - Big idea for kids: computers learn from examples we give them; more and different examples help.
 
 ## Extensions
-- Grades 4-5: count right and wrong guesses and make a bar graph of accuracy.
+- Ages 9-11: count right and wrong guesses and make a bar graph of accuracy.
 - Try Code.org AI for Oceans.
 
 ---
