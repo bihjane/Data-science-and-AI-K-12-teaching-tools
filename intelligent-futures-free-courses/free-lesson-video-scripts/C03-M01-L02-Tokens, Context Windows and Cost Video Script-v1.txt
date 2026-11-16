@@ -1,0 +1,128 @@
+Tokens, Context Windows and Cost
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 10 slides, about 1599 words (about 11 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: Tokens, context windows and cost ---
+
+Welcome to Prompt to Agent, Module 1, Lesson 2: Tokens, context windows and cost.
+
+Whenever an organisation considers using AI for something real, two questions come up almost immediately. How much will it cost? And can it handle all of our material at once?
+
+In this lesson you’ll learn the three ideas you need to answer both: tokens, which are how AI measures text; context windows, which are how much text a model can handle in one go; and per-token pricing, which is how almost every AI provider charges. By the end, you’ll be able to put real numbers on a real task, which is a skill that makes you very useful in any meeting about AI.
+
+--- Slide 2: 2,000 parent emails a week. Two questions from the manager. ---
+
+Meet the communications lead at a school district. Parents send her team about two thousand emails a week, and she’d like AI to summarise each one, so her team can spot urgent issues faster.
+
+Her manager is interested, but asks two very reasonable questions. One: how much will this cost each month? And two: can it read the whole three-hundred-page student handbook, so it can help answer parents’ questions?
+
+Right now, she has no idea how to answer either. Maybe it’s a few dollars. Maybe it’s thousands. She can’t tell.
+
+By the end of this lesson, you’ll be able to answer both questions with real numbers. Before we go any further, pause the video and write down your own guess for the monthly cost. Any number. We’ll come back to it at the end and see how close you were.
+
+--- Slide 3: You’ll be able to… ---
+
+Here’s what you’ll be able to do by the end of this lesson.
+
+One: explain what a token is, and estimate how many tokens are in a piece of text.
+
+Two: explain what a context window is, and decide whether a task fits inside one.
+
+And three: estimate the monthly cost of a repeated AI task, using token counts and published prices. That’s exactly what the communications lead needs.
+
+--- Slide 4: AI reads and writes in small pieces called tokens ---
+
+Let’s start with tokens.
+
+Language models don’t read words the way we do. They read and write text in small pieces called tokens. A token can be a whole common word, part of a longer word, a space, or a punctuation mark. On the slide, you can see an illustration: “Parents asked about transportation” might be split into pieces like Parents, asked, about, trans, portation, and the full stop. The exact split depends on the model.
+
+Google’s documentation for its Gemini models gives a handy rule of thumb: one token is about four characters of English text, and a hundred tokens is about sixty to eighty English words. Other providers give similar rules.
+
+But be careful with two things. First, every model family has its own tokenizer, the tool that does the splitting, so exact counts differ between models. Second, many languages other than English, as well as computer code and unusual words, use more tokens to say the same amount. So if your organisation serves families in several languages, budget for that.
+
+Why does this matter? Because models count, limit and charge for text in tokens, not words.
+
+--- Slide 5: The most text a model can handle in one request ---
+
+Next, the context window. This is the most tokens a model can handle in a single request. Think of it as the size of the model’s desk: anything that doesn’t fit on the desk simply isn’t seen.
+
+And everything counts towards it. Your instructions. Any documents you paste in. The whole conversation so far, if you’re in a chat. And, for many models, the answer the model writes as well. If the total is bigger than the window, the request either fails, or older text gets quietly dropped. That’s why long chats sometimes seem to “forget” what you said at the start.
+
+Windows have grown enormously. Google’s model page lists a context window of one million tokens for its flagship Gemini model. That’s roughly thirteen hundred pages of text at five hundred words a page.
+
+But a large window isn’t perfect memory. Researchers have found that models can miss details placed in the middle of very long inputs; one well-known study called this being “lost in the middle”. So for large collections of documents, there’s usually a better approach than pasting everything in: retrieval, where the system finds just the relevant passages first. You’ll build exactly that in Module 6.
+
+And as always, model names and window sizes change often, so check the provider’s current model page.
+
+--- Slide 6: You pay per token, in and out ---
+
+Now, cost. Hosted AI models charge by the token, and almost every provider quotes prices per million tokens.
+
+There are separate prices for two kinds of token. Input tokens are what you send: your instructions and any text you include. Output tokens are what the model writes back. Output tokens usually cost several times more than input tokens, which is an important clue for saving money.
+
+Some newer models also “think” before they answer, working through the problem internally. Google bills those thinking tokens as output, so they count too.
+
+Here’s the formula. Don’t worry, it’s simpler than it looks. Take the input tokens per request, multiply by the number of requests in a month, divide by one million, and multiply by the input price. Then do the same for the output tokens with the output price. Add the two together, and that’s your monthly cost.
+
+In the lab, you’ll turn this formula into a small Python function, so you can price any task in seconds.
+
+--- Slide 7: Four ways to cut the cost ---
+
+Once you can see where the money goes, you can spend less. Here are four simple ways.
+
+One: ask for shorter answers. Since output tokens cost the most, “summarise in two sentences” is cheaper than an open-ended request, and often more useful too.
+
+Two: send only the text the model actually needs. Instead of pasting a whole fifty-page document to answer one question, send the relevant section.
+
+Three: use a smaller, cheaper model for simple tasks. Sorting emails into five categories doesn’t need the most powerful model available. You’ll learn how to choose in Lesson 4.
+
+And four: reuse results. If many people ask the same question, store the answer and reuse it rather than paying to generate it again.
+
+Each of these has a trade-off, of course. A shorter answer may leave something out. A smaller model may make more mistakes. The skill is choosing consciously, rather than paying for power you don’t need.
+
+--- Slide 8: About $2.51 a month, and yes, with the right model ---
+
+Let’s answer the manager’s two questions.
+
+First, cost. Two thousand emails a week, times fifty-two weeks, divided by twelve months, is about eight thousand six hundred and sixty-seven emails a month.
+
+Say each email plus the instructions is about three hundred tokens of input. That’s about two point six million input tokens a month. At thirty cents per million, that’s seventy-eight cents.
+
+Say each summary is about eighty tokens of output. That’s about point six nine million output tokens. At two dollars fifty per million, that’s a dollar seventy-three.
+
+Add them together: about two dollars fifty-one a month. These are prices a low-cost model from Google was listed at; prices change, so always check the current pricing page and date your numbers.
+
+How close was your guess? Most people guess far higher. That’s exactly why doing the arithmetic matters.
+
+Second question: the handbook. Three hundred pages is about two hundred and twenty-five thousand tokens. That fits comfortably in a one-million-token window, but not in a model with a hundred and twenty-eight thousand token window. So the answer is: yes, with the right model. Though, as you’ll learn in Module 6, retrieving only the relevant pages is usually cheaper and more reliable.
+
+--- Slide 9: The words behind the bill ---
+
+Let’s recap the vocabulary.
+
+A token is the small unit of text a model reads and writes: a short word, part of a word, a space or a punctuation mark. Models count and charge for text in tokens rather than words.
+
+A tokenizer is the tool that splits text into tokens. Each model family has its own, so the same sentence can be a different number of tokens in different models.
+
+The context window is the most tokens a model can take in and produce in one request. Think of it as the size of the model’s desk: anything that doesn’t fit isn’t seen.
+
+Input tokens are what you send: your prompt plus any documents or chat history.
+
+Output tokens are what the model writes back, and they usually cost more.
+
+And price per million tokens is how AI providers quote prices. Thirty cents per million input tokens means sending one million tokens costs thirty cents.
+
+--- Slide 10: Practice, check, apply ---
+
+Over to you.
+
+The lab is called Price a real AI task. You’ll write a token estimator, a monthly cost function using the formula from this lesson, and a check that tells you whether a document fits in a given context window. Then you’ll use them on a real support-ticket task. Everything you need is in the Lab tab.
+
+Then take the six-question quiz.
+
+And apply it. Pick one repeated task from your own work, like summarising meeting notes or replying to common questions. Estimate its tokens and how often it happens, then price it for a month using a current price you look up, and note the date you checked. Then write down one change that would cut the cost in half, and what that change would trade away.
+
+One important habit before you do: if you paste real work text into any tool to count tokens, first check whether it contains personal or confidential information, and whether your organisation allows that tool. The cheapest mistake is the one you avoid.
+
+Next lesson: why models sometimes make things up, and the four checks that catch most of it.

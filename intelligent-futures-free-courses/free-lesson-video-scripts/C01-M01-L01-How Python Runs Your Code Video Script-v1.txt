@@ -1,0 +1,114 @@
+How Python Runs Your Code
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 9 slides, about 1524 words (about 10 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: How Python runs your code ---
+
+Welcome to Python Liftoff. I’m Dr. Janet Bih Shufor, and this is Module 1, Lesson 1: How Python runs your code.
+
+In the next few minutes you’ll see what actually happens when you press Run, learn the handful of grammar rules Python insists on, and practise reading an error message calmly instead of panicking. You don’t need any programming experience for this lesson. If you can type and copy text, you can follow along.
+
+By the end, you’ll be able to look at a few lines of Python and say whether they will run, and if not, exactly which rule they break. That skill is the foundation for everything else in this course, and it also shows up again and again on the PCEP exam. Let’s start with a short story.
+
+--- Slide 2: Two lines that look identical. One works, one doesn’t. ---
+
+Picture this. A school office assistant finds a short Python script in an email from a colleague. It’s meant to tidy up a class list. She copies it, pastes it into her notebook, presses Run, and gets this: IndentationError, unexpected indent.
+
+She compares it with the original. It looks exactly the same. Same words, same order, same everything. So what’s going on?
+
+Here’s the answer. When the code was copied, one line ended up starting with a tab character, while the lines around it start with spaces. On screen, a tab and four spaces can look identical. To Python, they are completely different.
+
+That’s the big idea of today’s lesson: Python reads your code very literally, including the spaces at the start of each line. Once you understand how Python reads code, errors like this stop being mysterious. You’ll know where to look, and you’ll fix them in seconds.
+
+--- Slide 3: You’ll be able to… ---
+
+Here’s what you’ll be able to do by the end of this lesson.
+
+First, explain what an interpreter is and how Python runs a program, one line after another, from top to bottom.
+
+Second, follow Python’s basic grammar rules, which programmers call syntax. That means indentation, comments, reserved keywords, and the fact that capital letters matter.
+
+And third, read an error message and fix the problem it points to. This is honestly one of the most useful skills in programming. Every programmer, at every level, sees error messages every day. The difference between a beginner and an experienced programmer is not that the experienced one never gets errors. It’s that they read the message and know where to look.
+
+--- Slide 4: The interpreter reads, checks, then runs, top to bottom ---
+
+So what happens when you press Run?
+
+Python is what we call an interpreted language. The program that runs your code is called the interpreter. Think of it as a very careful, very literal reader.
+
+It works in three steps. First, it reads your source code, which is just the text you typed, whether that’s in a file ending in .py or in a notebook cell. Second, it checks the grammar. If any line breaks Python’s rules, it stops right there with a SyntaxError, and nothing in that file runs at all. Not even the first line. Third, if the grammar is fine, it translates the code into a simpler internal form called bytecode, and runs it one line at a time, from top to bottom.
+
+Compare that with a compiled language like C, where the whole program is translated into machine code before it ever runs.
+
+Here’s a detail that matters for the exam and for real life. A grammar mistake stops everything before it starts. But a problem that only appears while the program is running, like dividing by zero on line ten, means lines one to nine have already run. Keep that difference in mind; we’ll come back to it in a moment.
+
+--- Slide 5: Five rules you must know ---
+
+Every language has grammar, and Python’s grammar is called its syntax. Here are the five rules you’ll use every single day.
+
+One. Indentation marks blocks. The spaces at the start of a line are not decoration. They tell Python which lines belong together, a bit like the indented steps under a heading in a recipe. The lines inside an if statement or a function are indented, and the standard is four spaces. That’s exactly what went wrong in our story: a tab sneaked in among spaces.
+
+Two. Comments start with a hash sign. Anything after the hash on that line is ignored by Python. Comments are notes for humans, and they’re a great habit.
+
+Three. Capital letters matter. Total with a capital T and total in lowercase are two completely different names to Python.
+
+Four. Keywords are reserved. Words like if, for, def, True and None have special meanings, so you can’t use them as names for your own data. There are about thirty-five of them, and you’ll print the full list in the demo.
+
+Five. One statement per line. If a line gets too long, you can continue it inside brackets.
+
+The exam loves to test these, especially indentation and keywords.
+
+--- Slide 6: Read the last line of the message first ---
+
+Now, errors. There are two big families, and knowing which one you’re looking at tells you a lot.
+
+On the left: syntax errors. These are grammar mistakes, and Python finds them before it runs anything. A missing bracket, a keyword used as a name, or a line indented when it shouldn’t be. That last one has its own special name, IndentationError, which is the one from our story. When you get a syntax error, nothing in the file has run.
+
+On the right: runtime errors. The grammar was fine, so Python started running, and then hit a problem partway through. A NameError usually means you used a name Python has never seen, very often because of a typo. A ZeroDivisionError means you divided by zero. With runtime errors, every line before the problem has already run.
+
+Here’s my one big tip. Error messages can be long, and they look scary. Don’t read them from the top. Go straight to the last line. It names the type of error and gives a short explanation. Then look just above it for the line number. Nine times out of ten, that’s all you need.
+
+--- Slide 7: Words you’ll hear all course ---
+
+Before the demo, let’s lock in the vocabulary, because you’ll hear these words throughout the course.
+
+Source code is simply the instructions you write. It’s plain text that people can read.
+
+The interpreter is the program that reads your Python and carries it out. When people say “run Python”, they mean run the interpreter on your code.
+
+Syntax is the grammar of the language: where the colons, brackets, quotes and indentation go. Break a rule, and Python can’t understand the line, just like a sentence with jumbled grammar.
+
+A keyword is a word Python has reserved for itself, like if, for or True. You can’t use a keyword as a name for your own data.
+
+Indentation is the spaces at the start of a line. In Python, they group lines together, so they really matter.
+
+And an error message is Python’s report of what went wrong and on which line. For example, NameError: name ‘totl’ is not defined almost always means a typo.
+
+--- Slide 8: Break it on purpose, then read the message ---
+
+Now let’s try it. Open a new notebook in Google Colab and follow along. Pause the video whenever you need to.
+
+Step one. Type print, open bracket, quote, Hello, quote, close bracket, and run it. You should see the word Hello. That’s your first working line of Python.
+
+Step two. Put two spaces in front of that same line and run it again. Python stops with an IndentationError, because the line is indented when there’s no block for it to belong to. Read the last line of the message, then remove the spaces and run it again. Fixed.
+
+Step three. Type if equals five. Python refuses with a SyntaxError, because if is a keyword. You can’t use it as a name.
+
+Step four. Type import keyword, then on the next line print keyword dot kwlist. Python prints every reserved keyword. Count them. On recent versions of Python you’ll find thirty-five.
+
+Notice what you just did. You broke the rules on purpose, read the message, and fixed it. That’s the exact skill you’ll use in the lab.
+
+--- Slide 9: Practice, check, apply ---
+
+Now it’s your turn, in three steps.
+
+First, the lab: Syntax detective. You’ll use Python’s own grammar checker to test small snippets of code, sort them into valid code and syntax errors, and list the keywords that can’t be used as names. Download the starter notebook from the Lab tab and open it in Google Colab. If you get stuck, the solution notebook is right there too, along with the expected output.
+
+Second, the quiz. Six questions with instant feedback, so you can see straight away what stuck.
+
+Third, apply it. Write a five-line script that prints your name, your role and today’s date, with a comment above each line explaining what it does.
+
+And one thing to think about. AI assistants can now write Python for you, and they can be genuinely helpful. But you’re the one responsible for what runs at work. Being able to read and check every line is what keeps you in charge.
+
+That’s it for Lesson 1. In the next lesson, we’ll look at the different kinds of values Python works with: whole numbers, decimals, text and true-or-false. See you there.

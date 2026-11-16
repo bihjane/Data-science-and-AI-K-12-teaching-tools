@@ -1,0 +1,118 @@
+Operators, Expressions and Console IO
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 9 slides, about 1377 words (about 9 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: Operators, expressions and console input and output ---
+
+Welcome to Lesson 3 of Python Liftoff, Module 1: Operators, expressions, and console input and output.
+
+So far you’ve seen how Python reads code, and the kinds of values it works with. Now we’ll make those values do something. You’ll learn Python’s arithmetic operators, including two that are incredibly useful for splitting things fairly. You’ll learn the order Python works things out in, which is a favourite on the PCEP exam. And you’ll learn how to ask the user a question and print a tidy answer.
+
+Let’s start with lunch money.
+
+--- Slide 2: $47 shared by 6 students: how much each, and what’s left? ---
+
+A school office has forty-seven dollars of lunch money to share equally among six students. Their script divides forty-seven by six and prints seven point eight three three three, and so on.
+
+Mathematically, that’s correct. But it’s useless to the cashier. You can’t hand someone a third of a cent. What the cashier actually needs is: how many whole dollars does each student get, and how much is left over?
+
+Python has two operators made exactly for this. Double slash, called floor division, gives the whole number of times six goes into forty-seven: seven. And the percent sign, called modulo or remainder, gives what’s left: five. Seven dollars each, five dollars left over. Problem solved.
+
+The point is that Python has several kinds of division, and choosing the right one depends on the question you’re answering. Let’s see the full set.
+
+--- Slide 3: You’ll be able to… ---
+
+Here’s what you’ll be able to do by the end of this lesson.
+
+One: use Python’s arithmetic operators, including floor division, remainder and power, and predict what each one gives you.
+
+Two: apply the order in which Python works out a calculation. It’s very close to the order of operations you learned in school maths, with a couple of twists the exam likes to test.
+
+And three: ask the user a question with input, and control exactly how your answer is printed with print.
+
+--- Slide 4: Three ways to divide, one way to power ---
+
+Here are Python’s arithmetic operators.
+
+Plus, minus and star, for add, subtract and multiply, work just as you’d expect.
+
+Single slash is ordinary division, and it always gives a float, even when the answer is whole. Seven divided by two is three point five, and six divided by two is three point zero.
+
+Double slash is floor division. It divides and then rounds down to the nearest whole number. Seven double-slash two is three. Now careful with negative numbers: minus seven double-slash two is minus four, not minus three, because rounding down means moving toward the more negative number. This is a classic exam question.
+
+Percent is the remainder. Seven percent two is one, because seven is three twos plus one left over. Minus seven percent two is also one in Python, which keeps floor division and remainder consistent with each other.
+
+Double star is power. Two double-star three means two times two times two, which is eight.
+
+And one more rule: if either number is a float, the answer is a float. Seven double-slash two point zero gives three point zero.
+
+--- Slide 5: Python works it out from the top of this list ---
+
+When a line has several operators, which does Python do first? This is called precedence, and it’s just like the order of operations from school maths, with a few extras.
+
+From the top: power comes first. Then a minus sign in front of a single number. Then multiplication and all the kinds of division and remainder. Then addition and subtraction. Then comparisons like equals-equals, less than and greater than. And last, the logical words: not, then and, then or.
+
+Two exam favourites, on the right.
+
+Two double-star three double-star two. Most operators work left to right, but power works right to left. So Python does three to the power of two first, which is nine, and then two to the power of nine, which is five hundred and twelve.
+
+And minus two double-star two gives minus four, not four. Power is higher on the list than the minus sign, so Python squares the two first, then applies the minus.
+
+My practical advice: in your own code, don’t rely on remembering this list. Add brackets to make your meaning obvious. Brackets always go first, and they make your code easier for the next person to read.
+
+--- Slide 6: input() always gives you a string ---
+
+Now let’s talk to the person using your program.
+
+To ask a question, use input. Input, open bracket, the question in quotes, close bracket. Python shows the question, waits for the person to type something and press Enter, and gives you what they typed.
+
+Here’s the key fact, and it links straight back to Lesson 2. Input always gives you a string. Even if the person types the number six, you get the text ‘6’. So if you multiply it by two, you don’t get twelve, you get ‘66’, because multiplying text repeats it. Convert first: int of n, times two, gives twelve.
+
+To answer, use print, and you can shape its output with two settings. Sep, short for separator, is what goes between the items you print. By default it’s a space; set sep to a dash and print of ‘a’ and ‘b’ shows a dash b. End is what goes at the end of the line. By default it’s a new line; set end to an exclamation mark and print of ‘Done’ shows Done! with no new line after it.
+
+These two small settings come up surprisingly often on the exam.
+
+--- Slide 7: The words behind the maths ---
+
+Let’s lock in the vocabulary.
+
+An operator is a symbol that does something to values, like plus, or greater than.
+
+An operand is a value an operator works on. In seven plus two, the operands are seven and two.
+
+An expression is any piece of code that produces a value, like seven plus two, or price times one point two. When Python works out the answer, we say it evaluates the expression.
+
+Precedence is the order in which Python applies operators, the list you just saw.
+
+Floor division, the double slash, divides and rounds down to a whole number. Share seven biscuits between two people, and each person gets three.
+
+And the remainder, also called modulo, the percent sign, is what’s left over after floor division. With the biscuits, that’s one biscuit left. Who gets it is a question Python can’t answer for you.
+
+--- Slide 8: Predict first, then run ---
+
+Time to try it. Open Colab, and for each step, say your prediction out loud before you run the code. Predicting first is one of the best ways to learn, because a wrong guess shows you exactly what to look at.
+
+Step one: split the lunch money. Print forty-seven double-slash six, and forty-seven percent six. You should see seven and five.
+
+Step two: the exam favourites. Predict two double-star three double-star two, then run it. Five hundred and twelve. Then minus two double-star two. Minus four.
+
+Step three: shape the output. Print red, green and blue with sep set to a slash, and you get red slash green slash blue.
+
+Step four: ask a question. Set n to input, with the prompt Number. Type six when asked. Now print n times two without converting and see what happens, then print int of n times two. The first gives ‘66’, the second gives twelve.
+
+If any result surprised you, go back to the slide that explains it. That surprise is learning happening.
+
+--- Slide 9: Practice, check, apply ---
+
+Your turn.
+
+The lab is called Split the bill. You’ll use floor division and remainder to share amounts fairly, check how operator precedence affects a calculation, and format the results neatly with sep and end. The starter notebook, solution and expected output are all in the Lab tab.
+
+Then take the six-question quiz.
+
+And apply it. Think of a calculation you do often at work: splitting a cost, working out a percentage, a rate per hour. Write it as a Python expression and test it on three different values, including one awkward value, like zero or a very large number.
+
+Something to think about. If a calculation in your code decides how much money real people owe, how will you check it before anyone relies on it? A few test values worked out by hand, and a second person looking at the logic, go a long way.
+
+That completes Module 1. You can now read Python’s grammar, work with its basic types, and do real calculations. Well done. In Module 2, your programs start making decisions.

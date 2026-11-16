@@ -1,0 +1,98 @@
+Literals, Variables and Types
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 9 slides, about 1491 words (about 10 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: Literals, variables and types ---
+
+Welcome back to Python Liftoff. This is Module 1, Lesson 2: Literals, variables and types.
+
+In the last lesson, you saw how Python reads your code. Now we’ll look at what your code works with: values. A number of students, a price, a person’s name, whether a form has been submitted. Python treats each of these as a different kind of value, called a type, and the type decides what you can do with it.
+
+This might sound like a small detail, but it causes some of the most common bugs in real workplace scripts. By the end of this lesson, you’ll know the five basic types by name, what each one is for, and how to convert from one to another safely. Let’s start with a story from a clinic.
+
+--- Slide 2: 35 plus 1 should be 36. The script said 351. ---
+
+Here’s a real kind of bug. A clinic has a short script that reads a patient’s age from a web form and adds one, to work out their age at next year’s check-up. A patient enters thirty-five. The script prints three hundred and fifty-one.
+
+What happened? Web forms almost always send what people type as text, even when it looks like a number. So the age arrived as the text ‘35’, with quote marks around it. And when you put a plus sign between two pieces of text, Python doesn’t add them. It joins them together, end to end. ‘35’ joined with ‘1’ gives ‘351’.
+
+The fix is one small function: int. It turns the text ‘35’ into the whole number 35, and then adding one gives 36, exactly as expected.
+
+The lesson here is simple but powerful. Every value in Python has a type, and the type decides what operations like plus actually do. Let’s meet the types.
+
+--- Slide 3: You’ll be able to… ---
+
+By the end of this lesson, you’ll be able to do three things.
+
+First, write and recognise the basic kinds of values: whole numbers, called integers or int for short; decimal numbers, called floats; text, called strings; and true-or-false values, called Booleans.
+
+Second, create variables, which are names for values, and understand that a name simply refers to a value.
+
+And third, convert a value from one type to another, and predict exactly what you’ll get. That’s the skill that would have saved the clinic’s script.
+
+--- Slide 4: Count it, measure it, or write it ---
+
+Let’s meet the types. A handy way to remember the first three is: are you counting it, measuring it, or writing it?
+
+If you’re counting something, you want an int, short for integer. An integer is a whole number with no decimal point. It can be positive, negative or zero, and in Python it can be as large as you need. The number of students in a class, someone’s age in years, the seats left on a bus: all integers.
+
+If you’re measuring something, you want a float, short for floating-point number. A float has a decimal point, so it can hold values between whole numbers: a price like nineteen ninety-nine, a temperature like thirty-six point six, an average grade of three point five. Here’s a detail that catches people: two point zero is a float, even though its value is a whole number, because it’s written with a decimal point. The name floating point comes from how computers store these numbers: the decimal point can float to any position.
+
+And if you’re writing something, you want a str, short for string. A string is text: a sequence of characters, letters, digits, spaces or symbols, inside quote marks. The name comes from characters strung together, like beads on a string. And remember the clinic: digits inside quotes are text, not numbers. ‘35’ in quotes is a string, and you can’t do arithmetic with it until you convert it.
+
+--- Slide 5: Yes or no, and “nothing here” ---
+
+Two more types to go.
+
+A bool, short for Boolean, has exactly two possible values: True and False, both written with a capital first letter. Use it for yes-or-no facts. Has the form been submitted? Is this member active? Booleans also appear whenever you compare things. Age greater than or equal to eighteen is a question, and Python answers it with True or False. The name comes from George Boole, a nineteenth-century mathematician who worked out the algebra of true and false.
+
+And finally, None. None is Python’s special way of saying “there’s no value here”. Think of a middle-name field that someone left blank on a form. That’s different from the number zero, and different from an empty piece of text. It means nothing has been given at all.
+
+If you’re ever unsure what type a value is, ask Python. Type, open bracket, the value, close bracket, tells you. For example, type of two point zero tells you it’s a float.
+
+--- Slide 6: Three surprises the type explains ---
+
+So why does all this matter? Here are three surprises that the type explains.
+
+First, the one from our story. Plus between two strings joins them, so ‘35’ plus ‘1’ gives ‘351’.
+
+Second, a famous one. Ask Python for zero point one plus zero point two, and you get zero point three zero zero zero, then a long run of zeros, and a four at the end. That isn’t a bug in Python. Computers store floats in binary, and some decimals can’t be stored exactly, just as one third can’t be written exactly as a decimal. The practical rule: when you display a float, especially money, round it. Round of total, comma, two gives you two decimal places.
+
+Third, a data trap. Postcodes and phone numbers are made of digits, but you never add them up. If you convert a postcode like zero two zero zero zero one into an integer, the leading zero disappears. So keep them as strings. The test is simple: if you’d never do arithmetic with it, it probably shouldn’t be a number.
+
+--- Slide 7: A name is a label on a value ---
+
+Now, variables. A variable is a name that refers to a value. Think of it as a label you stick on a box. When you write age equals thirty-five, you’re putting the label age on the value thirty-five. If you later write age equals thirty-six, you simply move the label to a new value.
+
+Python has some handy shortcuts. You can set two variables at once: a comma b equals one comma two. You can swap them in one line: a comma b equals b comma a. And count plus-equals one adds one to count, which you’ll use constantly.
+
+Converting between types uses functions named after the types. Int of the string ‘35’ gives the number thirty-five. Float of ‘2.5’ gives two point five. Str of ten gives the text ‘10’. And bool of zero gives False. In fact zero, empty text and None all count as False, and almost everything else counts as True.
+
+Two exam favourites. Int of three point nine gives three, not four, because int cuts off the decimal part rather than rounding. And int of the string ‘3.5’ fails with a ValueError, because that text isn’t a whole number. If you need it, convert to a float first, then to an int.
+
+--- Slide 8: Ask Python what type it is ---
+
+Let’s try it in Colab. Pause whenever you need to.
+
+Step one: three values that look alike. Type of one underscore zero zero zero gives int. The underscore is just there to make big numbers easier to read, like a comma. Type of one e three gives float: one e three is scientific notation for one thousand point zero. And type of ‘1e3’ in quotes gives str, because anything in quotes is text.
+
+Step two: fix the clinic’s bug. Int of ‘35’, plus one, gives thirty-six. Exactly what the clinic needed.
+
+Step three: break it on purpose. Int of ‘3.5’ gives a ValueError, because that text isn’t a whole number. Read the last line of the message. Then fix it by converting to a float first: int of float of ‘3.5’ gives three.
+
+Step four: make two variables, a and b, then swap them with a comma b equals b comma a, and print both. In many languages that takes three lines. In Python it takes one.
+
+--- Slide 9: Practice, check, apply ---
+
+Your turn.
+
+The lab is called Fix the form data. You’ll take values the way a web form really sends them, as text with extra spaces and odd entries, and convert each one into the right type. Download the starter notebook from the Lab tab. The solution and the expected output are there too.
+
+Then take the six-question quiz to check what stuck.
+
+And apply it: find a form or spreadsheet you use at work, pick three fields, and decide which type each should become: int, float, string or Boolean. Remember the phone-number rule.
+
+One last question to think about. When your code converts form data, what should happen to a value that can’t be converted, like an age typed as the word thirty? Should the code guess, skip it, or stop and flag it? And who needs to know? Real data about real people deserves that care.
+
+That’s Lesson 2. Next time: operators, expressions, and reading input from a user. See you there.
