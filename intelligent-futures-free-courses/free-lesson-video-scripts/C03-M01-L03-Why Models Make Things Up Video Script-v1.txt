@@ -1,0 +1,116 @@
+Why Models Make Things Up
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 9 slides, about 1352 words (about 9 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: Why models make things up ---
+
+Welcome to Prompt to Agent, Module 1, Lesson 3: Why models make things up.
+
+If you’ve used AI tools for a while, you’ve probably seen it happen. You ask a question, and the answer sounds completely convincing: confident tone, specific details, maybe even a source. And then you discover part of it simply isn’t true.
+
+This is often called hallucination, and it’s one of the most important things to understand about generative AI at work. In this lesson you’ll learn why it happens, what it typically looks like, and four practical checks that catch most of it before it reaches someone who relies on it. Let’s start with a real case that made headlines.
+
+--- Slide 2: Six court cases cited. None of them existed. ---
+
+In 2023, a US federal judge in New York sanctioned two lawyers in a case called Mata versus Avianca. Their court filing cited six earlier cases to support their argument. There was just one problem: none of the six cases existed.
+
+The lawyers had used ChatGPT to help research the brief, and they hadn’t checked the citations. Worse, when they asked the tool whether the cases were real, it assured them they were.
+
+This case became famous because it shows the problem so clearly. The made-up cases weren’t vague. They had realistic names, plausible quotes and properly formatted citation numbers. They looked exactly like real legal research.
+
+So here’s the question to keep in mind. How could a tool produce such realistic details for cases that never happened? Once you understand the answer, you’ll know exactly where to look for this problem in your own work.
+
+--- Slide 3: You’ll be able to… ---
+
+By the end of this lesson, you’ll be able to do three things.
+
+First, explain why language models sometimes produce confident statements that are false. These are often called hallucinations, though I prefer the plainer phrase “made-up content”.
+
+Second, name the common types of made-up content: invented facts, numbers and sources, and misreadings of real sources.
+
+And third, apply four practical checks that catch most of it before it reaches someone who relies on it.
+
+--- Slide 4: It writes what a good answer looks like, even without the facts ---
+
+So why does this happen? Think back to Lesson 1. A language model writes by predicting likely next tokens. It’s built to produce text that fits the pattern of a good answer.
+
+When the model has the real information, the likely text is usually correct. But when it doesn’t, the likely text can still look exactly like a correct answer. A case name in the right format. A plausible percentage. A policy that sounds standard. That’s the answer to our legal puzzle: the model knows what legal citations look like, so it can produce convincing ones, whether or not they exist.
+
+There are four common causes.
+
+Missing information: the fact was never in its training data, or it’s your organisation’s private policy, which the model has never seen.
+
+Outdated information: training data stops at a cutoff date, and the world has changed since.
+
+Pressure to answer: models are trained to be helpful, and the way we ask often assumes an answer exists.
+
+And misreading the source: even when you give it the right document, a model can mix up two numbers or attach a rule to the wrong case.
+
+--- Slide 5: Wrong sentences read exactly like right ones ---
+
+Here’s what made-up content looks like at work. These examples are illustrations, but every one of them is a pattern you’ll recognise once you start looking.
+
+An invented fact: a clinic’s chatbot tells a patient that payment plans run for twelve months, when the actual policy says six.
+
+An invented number: a marketing summary reports “a twenty-three percent lift” that appears in no report anywhere.
+
+An invented source: a research summary cites a journal article that doesn’t exist, just like the court case.
+
+A misread source: a finance assistant has the right policy document, but applies the travel-expense limit to software purchases.
+
+And a confident guess: a help-desk bot gives exact step-by-step instructions for a software version that was never released.
+
+The most important lesson on this slide is in the title. Confidence and tone tell you nothing. A wrong sentence reads exactly like a right one. So you can’t judge an AI answer by how sure it sounds. You need checks.
+
+--- Slide 6: Ground it, allow “I don’t know”, check details, match the stakes ---
+
+The good news is that four simple checks catch most of this.
+
+Check one: give it the source. Paste or provide the document the answer should come from, and tell the model to answer only from that document. This is the core idea behind RAG, retrieval-augmented generation, which you’ll build in Module 6.
+
+Check two: allow “I don’t know”. Tell the model that “The document does not say” is a perfectly acceptable answer. This removes the pressure to invent something just to be helpful.
+
+Check three: check the checkable details. Numbers, dates, names, amounts and citations are where invented content most often hides. They’re also the easiest things to verify. If the lawyers in our story had simply looked up their six citations, they’d have caught every one.
+
+And check four: match the review to the stakes. A brainstorm for party themes needs no review at all. But a customer letter about money, health or grades needs a person to verify every fact before it’s sent.
+
+None of these checks is perfect on its own. Together, they turn AI from a risky shortcut into a reliable assistant.
+
+--- Slide 7: Four words for trustworthy answers ---
+
+Four terms to remember from this lesson.
+
+Hallucination, or made-up content: when a model states something false or invented, such as a source that doesn’t exist, in the same confident tone it uses for true facts.
+
+Grounding: giving the model trusted material, like your own documents, and asking it to answer only from that material. It’s one of the most effective ways to reduce made-up content.
+
+Citation: a pointer to the exact source of a claim, such as the specific line of a policy, so a reader can check it quickly.
+
+And verification: checking a claim against a reliable source before you use it. That’s the step the lawyers skipped.
+
+--- Slide 8: Same question, with and without the source ---
+
+Let’s see grounding in action. Open Google AI Studio, or any AI chat tool you’re allowed to use.
+
+Step one: ask, “What is the late fee in Riverside Family Clinic’s billing policy?” Here’s the trick: Riverside Family Clinic is fictional. It doesn’t exist. So if the model gives you a specific fee, that fee is made up.
+
+Step two: now paste the fictional policy from the lab into the chat, and ask again, adding: “Answer only from this policy. If the policy does not say, reply ‘The policy does not say.’” Compare the two answers.
+
+Step three: ask for the answer with a citation to the exact line of the policy that supports it. Notice how much faster it becomes to check.
+
+And step four, a note on honesty. Results vary between runs and between tools. If the model declines to invent a fee in step one, that’s good behaviour, and many newer models are better at this. But it also shows why you test rather than assume: the next question, or the next tool, may behave differently.
+
+--- Slide 9: Practice, check, apply ---
+
+Your turn.
+
+The lab is called Catch the made-up answer. You’ll check an AI answer line by line against the policy it was supposed to use, and flag any details the policy doesn’t support. Then comes the fun part: you’ll try to write a false sentence that slips past your own check. You’ll find that you can, which shows why automated checks support human review rather than replace it.
+
+Then take the six-question quiz.
+
+And apply it. Take a short, non-confidential policy or procedure from your field. Write three questions about it: one the policy answers, one it answers only partly, and one it doesn’t answer at all. Ask an AI tool each question twice, once without the policy and once with it plus the “answer only from this” instruction, and note what changes.
+
+Finally, write a one-paragraph review rule for your team: which AI outputs need a human fact check before they’re used, and who does it. That paragraph could save your organisation from its own version of the court case.
+
+In the last lesson of this module, we’ll look at how to choose the right model for a job.

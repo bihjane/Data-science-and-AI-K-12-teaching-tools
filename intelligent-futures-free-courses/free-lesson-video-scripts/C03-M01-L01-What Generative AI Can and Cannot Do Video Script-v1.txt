@@ -1,0 +1,124 @@
+What Generative AI Can and Cannot Do
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 10 slides, about 1638 words (about 11 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: What generative AI can and cannot do ---
+
+Welcome to Prompt to Agent. I’m Dr. Janet Bih Shufor, and this is Module 1, Lesson 1: What generative AI can and cannot do.
+
+You’ve almost certainly used an AI chat tool by now, to draft an email, summarise a document or answer a question. But most people use these tools without really knowing how they produce an answer, why the answer can change each time, or when to trust it.
+
+In this lesson you’ll get a clear, plain-language picture of what’s happening under the hood. You don’t need any maths or coding background for this part. By the end, you’ll be able to look at a task from your own job and say: this is a good fit for AI, this needs checks, or this is a poor fit. Let’s start with a story from a credit union.
+
+--- Slide 2: Same tool, same prompt, two different answers ---
+
+Here’s our story. A credit union’s operations team needs to tell members that online banking will be down on Saturday, from one to three in the morning. Two colleagues each ask the same AI tool, with exactly the same prompt, to write the email’s subject line.
+
+One gets: Online banking maintenance, Saturday one to three a.m. Clear, and it keeps the important details.
+
+The other gets: Important, Online Banking Maintenance This Weekend. It sounds professional, but it’s dropped the time completely.
+
+The second one is the version that goes out. On Saturday morning, the call centre is flooded with members who couldn’t tell when the service would be down.
+
+So, two questions to hold in your mind as we go. First: same tool, same prompt, two different answers. Why? And second: whose job was it to catch that the time was missing? By the end of this lesson, you’ll have a clear answer to both.
+
+--- Slide 3: You’ll be able to… ---
+
+By the end of this lesson, you’ll be able to do three things.
+
+First, describe in plain language how a large language model produces text, one small piece at a time.
+
+Second, explain why the same prompt can give different answers, which is exactly what happened at the credit union.
+
+And third, sort tasks from your own work into three groups: a good fit for AI, a fit only with checks, and a poor fit. And give a reason for each. That last skill is the one your manager will care about most.
+
+--- Slide 4: It predicts the next piece of text, again and again ---
+
+So what’s actually happening inside these tools?
+
+The engine behind a chat assistant is called a large language model, or LLM. It’s a program that was trained on a huge amount of text to do one deceptively simple thing: given the text so far, predict what text is likely to come next.
+
+It works in small pieces called tokens. A token is often a short word or part of a longer word. To write an answer, the model predicts one token, adds it to the text, then predicts the next one, and the next, until the answer is finished. On the slide, you can see it extending “Online banking will be” with “down”, then “on”, then “Saturday”.
+
+Two important points. First, during training, the model learned patterns of language, facts and reasoning from all that text. That’s why it can be so fluent and knowledgeable. Second, and this matters a lot for work, it does not look facts up in a database while it writes. It’s working from patterns it learned, unless the system around it gives it documents to read or tools to use. Later in this course, in Modules 6 and 8, you’ll learn how to add exactly those things.
+
+--- Slide 5: The model picks with a little randomness ---
+
+Now we can answer the first question from our story: why did the same prompt give two different answers?
+
+At each step, the model doesn’t just have one possible next token. It has a whole list of possibilities, each with a probability. After “Online banking maintenance, colon”, the word Saturday might be quite likely, “this” fairly likely, “planned” less likely, and so on.
+
+Most AI tools don’t always pick the single most likely option. They sample, which means they choose with a bit of randomness, weighted by those probabilities. That’s what makes the writing sound natural and varied rather than robotic. But it also means one run might choose Saturday and include the time, and another might choose “this weekend” and lose it.
+
+Many tools have a setting called temperature that controls how much randomness is used. A lower temperature gives more predictable, focused answers. A higher temperature gives more varied, creative ones. But here’s the honest truth: even at a low setting, answers aren’t guaranteed to be identical every time.
+
+So the practical lesson is this: you can’t assume an AI answer will be the same each time, so anything important needs a check.
+
+--- Slide 6: Predictive AI gives a score. Generative AI creates content. ---
+
+Let’s place generative AI alongside something many organisations already use.
+
+Predictive AI produces a score or a label. A bank’s fraud-risk score on a transaction, a prediction of which customers might leave, a clinic’s estimate of which patients are likely to miss appointments. These have been around for years, and if you did Course 02, you built some yourself.
+
+Generative AI produces new content: text, images, code or audio. That’s what chat assistants do.
+
+They aren’t rivals. In fact, they often work best together. Imagine a predictive model flags a payment as possibly fraudulent, and then a generative model drafts a clear note to the human reviewer, explaining what looked unusual. The predictive model decides what deserves attention; the generative one helps a person act on it quickly.
+
+--- Slide 7: Good fit, fit with checks, poor fit ---
+
+So where does generative AI actually help at work? Here’s a practical way to sort tasks into three groups.
+
+On the left, usually a good fit: drafting emails, posts and outlines; rewriting something for a different tone or reading level; summarising text that you provide; brainstorming ideas; and explaining or writing simple code. If the output is a little off, it’s easy to spot and fix.
+
+On the right, a poor fit without extra design: exact facts the model wasn’t given, recent events after its training data, precise arithmetic on large tables, and final decisions about people, like hiring, credit, care or grades. Anything that needs an accountable sign-off belongs here too.
+
+And in the middle, a fit, but only with checks: pulling fields out of documents, classifying tickets or feedback, answering questions from your own documents, and translating text that customers will see.
+
+That middle column is where most of the real business value is. And it’s where this course spends most of its time: adding documents, tests and checks so that a useful tool becomes a reliable one.
+
+Now think back to the credit union. Writing a subject line is a good-fit task, but one that carries a key fact, the time, needs a quick human check. That answers our second question: a person was responsible for catching it.
+
+--- Slide 8: Words you’ll hear all course ---
+
+Let’s pin down the vocabulary, because these words come up in every lesson from here on.
+
+Artificial intelligence, or AI, means computer systems that do tasks we usually link with human thinking, like understanding language or spotting patterns.
+
+Generative AI is AI that creates new content, such as text, images or code, in response to a request.
+
+Predictive AI is AI that makes a prediction or decision from data, giving you a score or a label rather than new content.
+
+A large language model, or LLM, is the kind of generative AI behind chat assistants. It learned patterns from a huge amount of text, and writes by predicting what comes next, one small piece at a time.
+
+A prompt is the instructions and text you give the model.
+
+And the output, or response, is what the model writes back.
+
+--- Slide 9: See the variation for yourself ---
+
+Let’s see this for ourselves.
+
+Step one: open Google AI Studio at aistudio dot google dot com. It’s free with a Google account. Paste in the subject-line prompt from the lab: the one about online banking being down on Saturday from one to three a.m.
+
+Step two: run it three times, starting a new chat each time, and compare the three answers. Do they all keep the day and the time?
+
+Step three: find the temperature setting in the run settings panel. Run the prompt twice with a low setting, and twice with a high setting. Notice how the high-temperature answers wander more.
+
+Step four, and this is my favourite: ask, “What time is maintenance on Sunday?” Sunday was never mentioned. Watch whether the model answers confidently anyway. It often will. Lesson 3 explains exactly why this happens, and how to guard against it.
+
+If you can’t use AI Studio, don’t worry: the lab runs completely offline with a built-in stand-in, so you can still see the same effect.
+
+--- Slide 10: Practice, check, apply ---
+
+Now it’s your turn.
+
+The lab is called Same prompt, different answers. You’ll write a small function that measures how similar two answers are, and a fact check that tests whether each answer kept the day and the time. Then you’ll read a report showing which runs kept the facts and which dropped them. It runs offline by default, so you don’t need an API key. The starter, solution and expected output are all in the Lab tab.
+
+Then take the six-question quiz.
+
+And apply it to your own work. List five tasks from your job and sort them into the three columns: good fit, fit with checks, and poor fit. For every task in the middle column, write down the check you’d add, for example, “a person confirms every dollar amount”.
+
+Finally, pick one task and think about the risk. If the AI got it wrong, who would be affected, and how? That habit of asking “who gets hurt if this is wrong?” is the heart of using AI responsibly.
+
+In the next lesson, we’ll look at tokens, context windows and cost, so you can answer the question every manager asks: how much will this cost?

@@ -1,0 +1,130 @@
+Choosing a Model
+BJS Academy · Dr. Janet Bih Shufor · Learn AI. Shape tomorrow.
+Narration script: 10 slides, about 1635 words (about 11 minutes at a calm pace).
+Read each slide’s text while that slide is on screen.
+
+--- Slide 1: Choosing a model ---
+
+Welcome to the final lesson of Module 1 in Prompt to Agent: Choosing a model.
+
+There are now dozens of AI models available, from big tech companies and open communities, in every size from huge to tiny. New ones arrive every few months, and every announcement claims to be the best.
+
+So how do you choose? In this lesson, you’ll learn a simple, practical method: understand the two main ways to get a model, compare candidates on five criteria, and use “must-have” rules to rule options out before you score them. By the end, you’ll be able to make a recommendation you can actually defend in a meeting. Let’s start with two teams who both want “the best model”.
+
+--- Slide 2: Two teams ask IT for “the best AI model” ---
+
+Two teams in the same company send IT the same request: “Please give us the best AI model.”
+
+The marketing team wants to draft around two hundred social media posts a week. They need it to be fast, and cheap, because they’ll use it constantly. If a draft is a bit off, they’ll just edit it.
+
+The clinic partner team wants to summarise letters that contain patient information. Their compliance lead has been very clear: the data must stay under the organisation’s control.
+
+So, here’s the question. Should both teams get the same model?
+
+Take a moment to think about it. You’ve probably already sensed the answer: no. They have completely different needs. And that’s the key insight of this lesson. “The best model” is the wrong question. The right question is: what’s the best model for this particular job?
+
+--- Slide 3: You’ll be able to… ---
+
+By the end of this lesson, you’ll be able to do three things.
+
+One: explain the difference between a hosted model, which you use through a provider over the internet, and an open-weight model, which you can run yourself.
+
+Two: compare models on five criteria: quality, cost, speed, context size and data control, for a specific task.
+
+And three: use a simple weighted decision matrix, plus must-have rules, to recommend a model, and record when you checked the facts.
+
+--- Slide 4: Rent it as a service, or run it yourself ---
+
+There are two main ways to get a model.
+
+The first is a hosted model, used through an API. The provider runs the model on its own servers. You send requests over the internet and pay per token, as you learned in Lesson 2. Examples include Google’s Gemini models, and models from OpenAI and Anthropic. The strengths: you get the most capable models available, there are no servers to manage, and you can start in minutes. The trade-offs: your data leaves your systems under the provider’s terms, and prices and model line-ups change over time.
+
+The second is an open-weight model. Here, the trained model, its weights, is published, so you can download it and run it on servers or a cloud account that you control. Examples include Google’s Gemma family, Meta’s Llama family and models from Mistral. The strengths: much more control over where your data goes, the option to customise the model, and no per-token fees to a provider. The trade-offs: you pay for the hardware and the people to run it, these models are usually less capable than the top hosted ones, and licence terms vary.
+
+One more detail. We say open-weight rather than open-source, because many of these models publish their weights but not their training data, and their licences can include usage restrictions. Always read the licence before using one in a product.
+
+Now think back to our clinic team. Which way might suit them better?
+
+--- Slide 5: Bigger is better at hard tasks. Smaller is faster and cheaper. ---
+
+Within each provider, you’ll usually find a family of models in different sizes.
+
+At one end, the flagship: the largest and most capable model, best on hard reasoning tasks, but also the slowest and most expensive.
+
+In the middle, mid-size models, which balance quality, speed and cost.
+
+And at the other end, small or “lite” models: the fastest and cheapest. For simple tasks like sorting emails, extracting a date or drafting a short social post, they’re often perfectly good enough.
+
+For example, Google’s Gemini model page lists a flagship reasoning model alongside Flash and Flash-Lite models built for speed and lower cost.
+
+Here’s the honest rule of thumb. Bigger models usually give better answers on hard tasks. Smaller ones are faster and cheaper, and for many everyday tasks you won’t notice a difference. Our marketing team, writing two hundred short posts a week, is a great fit for a smaller model.
+
+And because model names and line-ups change so often, always check the official model page before you decide.
+
+--- Slide 6: Compare candidates on what your task needs ---
+
+So how do you compare models? Use five criteria.
+
+Quality on your task. Public leaderboards, which rank models on standard tests, are a useful starting point, but they’re not the answer. The only quality score that really matters is how a model does on your work. So test your candidates on ten to twenty real examples. You’ll learn exactly how in Module 3.
+
+Cost. Price per million input and output tokens, times your volume. You already know how to work this out from Lesson 2.
+
+Speed. How long people have to wait for an answer. This matters most in live chat, where a customer is waiting, and much less in an overnight batch job.
+
+Context size. Whether your typical input fits inside the model’s context window, also from Lesson 2.
+
+And data control. Where your data is processed and stored, whether the provider may use it, and what your organisation’s rules and contracts require. For the clinic team, this is the criterion that matters most.
+
+--- Slide 7: Rule options out first, then score what’s left ---
+
+Now let’s turn those five criteria into a decision.
+
+Step one: must-haves. A must-have is a rule that removes an option completely, no matter how well it scores on everything else. “Patient data must stay in systems we control” is a must-have, not a preference. If a model can’t meet it, it’s out. Decide your must-haves first, before you look at any scores.
+
+Step two: weights. A weight says how much each criterion matters for this particular job. Then you score each remaining option on each criterion, multiply by the weights, and add them up. That’s called a weighted decision matrix, and you’ll build one in the lab.
+
+Watch how this solves our two teams. For marketing, cost and speed get heavy weights, and a small hosted model will likely win. For the clinic team, the data-control must-have may rule out some hosted options entirely, unless the organisation’s contracts and settings meet its rules, and quality and data control get the heaviest weights. Same method, different answers, each one defensible.
+
+Finally, record the date you checked the facts, because prices and models change.
+
+--- Slide 8: The words of model shopping ---
+
+Here are the key terms from this lesson.
+
+A model provider is the company that builds and runs a model, such as Google, OpenAI or Anthropic.
+
+API stands for application programming interface. It’s a way for your own code to send a request to a model over the internet and get the answer back. You’ll write your first API calls in Module 2.
+
+A hosted model, sometimes called proprietary, is one you use through the provider’s service and pay for by use. You can’t download it.
+
+An open-weight model is one whose trained settings, its weights, are published, so you can download it and run it on your own computer or server.
+
+Latency is simply how long you wait for an answer. Smaller models usually reply faster.
+
+And a model family is a set of related models from one provider, in different sizes, from large and capable to small, fast and cheap.
+
+--- Slide 9: Read the official pages like an analyst ---
+
+Let’s practise reading official model pages, the way an analyst would.
+
+Step one: open Google’s Gemini models page, at ai dot google dot dev, slash gemini-api, slash docs, slash models. For each model, look at three things: its description, its context window size, and its status. Stable means it’s ready for production use. Preview means it may still change, so be careful about building on it.
+
+Step two: open the pricing page and compare a Flash-Lite model with the flagship for the support-ticket task from Lesson 2. Use your cost formula. You’ll likely find the price difference is large, which is exactly why testing whether the smaller model is good enough is so valuable.
+
+Step three: open Google’s Gemma page, at ai dot google dot dev slash gemma. This is an open-weight family. Notice what it offers, and find where its terms of use are linked. That’s the licence you’d need to read before using it in a product.
+
+The same approach works for any provider: find the model page, the pricing page and the terms, and note the date you checked.
+
+--- Slide 10: Practice, check, apply ---
+
+Your turn, for the last time in this module.
+
+The lab is called Choose the right model for the job. You’ll score three kinds of model with a weighted decision matrix, then watch how the winner changes when a project’s priorities change, and when a must-have rule removes options. Everything is in the Lab tab.
+
+Then take the six-question quiz.
+
+And apply it. Choose one project from your field. Set weights for the five criteria, write down any must-haves, and score two or three real models using their official model and pricing pages. Record the date you checked. Then write a three-sentence recommendation: which model, why, and what you would test before committing to it.
+
+And finally, a wrap-up for the whole module. Write down one change in how you’ll use AI at work after these four lessons. Maybe you’ll check every number in AI-written emails. Maybe you’ll price a task before proposing it. Whatever it is, writing it down makes it far more likely you’ll do it.
+
+Congratulations on finishing Module 1. You now understand how generative AI works, what it costs, where it fails and how to choose it. In Module 2, you’ll start calling AI models from Python yourself. See you there.
