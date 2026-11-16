@@ -11,6 +11,8 @@ Six step-by-step notebooks that go from raw data to a tested model. They run fre
 | A neural network that reads handwriting | Neural network (MLP), optional Keras | Intermediate, ages 15+ | [Open in Colab](https://colab.research.google.com/github/bihjane/data-science-and-ai-k-12-teaching-tools/blob/main/intelligent-futures-free-courses/colab-notebooks/05_neural_network_handwritten_digits.ipynb) |
 | Finding groups of countries | k-means clustering | Intermediate, ages 15+ | [Open in Colab](https://colab.research.google.com/github/bihjane/data-science-and-ai-k-12-teaching-tools/blob/main/intelligent-futures-free-courses/colab-notebooks/06_clustering_countries_kmeans.ipynb) |
 
+See [COURSE_MAP.md](COURSE_MAP.md) for where each notebook fits in the Intelligent Futures courses, with project briefs.
+
 ## The steps every notebook follows
 Load the data, explore it with a graph, prepare features, split into training and test sets, train, measure the error, improve, explain the model, then predict and check its limits. Each step has a **Your turn** task.
 
