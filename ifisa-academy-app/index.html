@@ -1037,8 +1037,8 @@ function landingPage() { const nLab = D.labs.length, nLes = D.courses.reduce((a,
   const tones = ["a", "b", "c", "d"];
   return `<section class="lhero hx"><div class="lhl">
     <span class="hxchip">Ages 5 to 18 · Free to start</span>
-    <h1>Learn data science and AI <span>by doing</span></h1>
-    <p class="lead">Real data. Real models. Real fun.</p>
+    <h1>Data Science and <span>AI Literacy</span></h1>
+    <p class="lead">Learn by doing, with real data and real models.</p>
     <div class="lcta"><a class="btn hot" href="#signin" data-startfree="1">Start learning free</a><button class="btn glass" data-scroll="sandbox">▶ Try it now</button></div>
     <div class="hxfacts"><span>📚 ${nLes} lessons</span><span>🧪 ${nLab} labs</span><span>⚡ Nothing to install</span></div></div>
     ${heroCards()}</section>
@@ -1494,7 +1494,7 @@ function render() {
   document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", h === a.dataset.nav || (a.dataset.nav === "home" && (h.startsWith("c-") || h.startsWith("learn/")))));
   const mm = h.match(/^c-([a-z0-9]+)(?:-(m\d\d))?$/);
   if (D && !learner() && (h === "signin" || signStep.role || signStep.pinFor)) { html = signInPage(); document.title = "Sign in - IFISA Academy"; }
-  else if (D && !learner() && !["demo", "about", "shop", "feedback", "plans", "myclass"].includes(h)) { html = landingPage(); document.title = "IFISA Academy - Data Science and AI for Students"; }
+  else if (D && !learner() && !["demo", "about", "shop", "feedback", "plans", "myclass"].includes(h)) { html = landingPage(); document.title = "IFISA Academy - Data Science and AI Literacy"; }
   else if (h === "demo") { html = filmPage(); FM = { i: 0, playing: false, muted: FM.muted, timer: null, tr: FM.tr === lang ? lang : null }; setTimeout(() => filmDo("title"), 30); }
   else if (h === "search" && q) html = searchPage(q);
   else if (mm && course(mm[1])) { const c = course(mm[1]); const m = mm[2] && c.modules.find(x => x.id === mm[2]); html = m ? modulePage(c, m) : coursePage(c); document.title = (m ? modName(m) + " - " : "") + c.short + " - IFISA Academy Projects"; }
