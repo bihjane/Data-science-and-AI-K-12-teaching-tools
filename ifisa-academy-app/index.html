@@ -258,7 +258,7 @@ nav a{white-space:nowrap}.teachbtn{background:linear-gradient(90deg,#FF8A00,#FF5
 .hxstep{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:4px}.hxstep .num{margin-bottom:6px}.hxstep b{font:800 20px "Roboto Slab",serif}.hxstep span:not(.num){color:var(--muted);font-size:15px}
 @media(max-width:860px){.hxroles{grid-template-columns:1fr}.hxrole{min-height:0;padding:20px}.hxages{grid-template-columns:1fr 1fr}.hxage .pic{height:96px}.hxage .tx small{display:none}}
 @media(max-width:520px){.hxsteps{gap:8px}.hxstep{padding:14px 6px}.hxstep b{font-size:17px}.hxstep span:not(.num){font-size:13px;line-height:1.3}.hxsec{margin:34px 0}}
-#sandbox{max-width:880px;margin-left:auto;margin-right:auto;text-align:center}#sandbox .sbox2{text-align:left}@media(max-width:520px){.lhero.hx .hcards{display:none}.lhero.hx .lcta{flex-wrap:nowrap}.lhero.hx .lcta .btn{padding:13px 16px;font-size:15px}.hxrole{flex-direction:row;align-items:center;flex-wrap:wrap;padding:16px 18px}.hxrole b{font-size:20px;flex:1 1 auto}.hxrole span{flex-basis:100%;order:3;font-size:14.5px}.hxrole em{margin:0;order:2}}.hxtag{font-style:italic;font-size:clamp(16px,1.6vw,19px);font-weight:600;color:#E9D5FF;margin:6px 0 4px;letter-spacing:.01em}</style>
+#sandbox{max-width:880px;margin-left:auto;margin-right:auto;text-align:center}#sandbox .sbox2{text-align:left}@media(max-width:520px){.lhero.hx .hcards{display:none}.lhero.hx .lcta{flex-wrap:nowrap}.lhero.hx .lcta .btn{padding:13px 16px;font-size:15px}.hxrole{flex-direction:row;align-items:center;flex-wrap:wrap;padding:16px 18px}.hxrole b{font-size:20px;flex:1 1 auto}.hxrole span{flex-basis:100%;order:3;font-size:14.5px}.hxrole em{margin:0;order:2}}.hxtag{font-style:italic;font-size:clamp(16px,1.6vw,19px);font-weight:600;color:#E9D5FF;margin:6px 0 4px;letter-spacing:.01em}.otabs{display:flex;gap:6px;background:var(--lav);border-radius:14px;padding:5px;margin:14px 0 6px;flex-wrap:wrap}.otabs button{flex:1;border:0;background:none;border-radius:10px;padding:10px 12px;font:700 15px "Nunito Sans",sans-serif;color:var(--purple);cursor:pointer}.otabs button.on{background:#fff;box-shadow:0 2px 8px rgba(60,20,100,.12)}.codein{font:700 17px ui-monospace,Menlo,monospace!important;letter-spacing:.06em;text-transform:uppercase}.roster{margin-top:12px;overflow-x:auto}.roster table{width:100%;border-collapse:collapse;font-size:15px}.roster th,.roster td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}.roster th{font-size:13px;color:var(--muted)}.kids{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.kidform{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.kidform input,.kidform select{padding:10px 12px;border:1.5px solid var(--line2);border-radius:10px;font:inherit}.kidform input{flex:1;min-width:160px}</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -346,7 +346,7 @@ function findFile(path) { for (const c of D.courses) { for (const f of c.files) 
 async function save(path, name) {
   if (!canDl()) return toast("Downloads are not available in this view");
   try { const f = findFile(path); let blob;
-    if (f && f.zip) { if (!window.JSZip) throw new Error("zip"); zips[f.zip] = zips[f.zip] || fetch(f.zip).then(r => { if (!r.ok) throw new Error("missing"); return r.text(); }).then(b => JSZip.loadAsync(b.trim(), { base64: true }));
+    if (f && f.zip) { if (!window.JSZip) throw new Error("zip"); zips[f.zip] = zips[f.zip] || fetch(f.zip, authInit()).then(r => { if (!r.ok) throw new Error("missing"); return r.text(); }).then(b => JSZip.loadAsync(b.trim(), { base64: true }));
       const z = await zips[f.zip]; blob = await z.file(f.name).async("blob"); }
     else { const r = await fetch(path); if (!r.ok) throw new Error("missing"); blob = await r.blob(); }
     if (downloads) { await downloads.save({ filename: name, data: blob }); toast("Saved " + name); }
@@ -711,7 +711,7 @@ function signInPage() {
     <label for="suS">Where do you learn${st ? "" : " or teach"}?</label><select id="suS"><option>Home</option><option>School</option><option>Home and school</option><option>Club or centre</option></select>
     <div class="grid2"><div><label for="suR">Country or region (optional)</label><input id="suR" maxlength="40" placeholder="For example: Cameroon, Texas, Kerala"></div><div><label for="suL">Languages at home (optional)</label><input id="suL" maxlength="60" placeholder="For example: English, French, Pidgin"></div></div>
     <p class="small muted" style="margin:4px 0 0">This helps us use examples from your culture and community.</p>
-    ${st && !s.cls ? `<label for="suC">Class code from your teacher (optional)</label><input id="suC" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="For example CL-ABC234-XYZ">` : ""}${s.role === "Teacher" ? `<label for="suSch">School or centre name (optional)</label><input id="suSch" maxlength="60" autocomplete="off">` : ""}<label for="suP">Make a 4-number PIN (optional)</label><input id="suP" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" placeholder="Only if others use this device">
+    ${st && !s.cls && !ONLINE ? `<label for="suC">Class code from your teacher (optional)</label><input id="suC" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="For example CL-ABC234-XYZ">` : ""}${s.role === "Teacher" ? `<label for="suSch">School or centre name (optional)</label><input id="suSch" maxlength="60" autocomplete="off">` : ""}<label for="suP">Make a 4-number PIN (optional)</label><input id="suP" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" placeholder="Only if others use this device">
     ${st ? `<p class="small muted">👋 If you are under 13, ask a parent, carer or teacher to help you.</p>` : ""}<div class="err" id="suErr" role="alert"></div><button class="btn" style="margin-top:10px">Start learning</button></form></div></section>`;
 }
 function signedInHome() { const u = learner(), bands = u.role === "Student" && u.ages !== "all" ? [u.ages] : u.ages && u.ages !== "all" ? [u.ages, ...Object.keys(STARTERS).filter(b => b !== u.ages)] : Object.keys(STARTERS);
@@ -1381,7 +1381,7 @@ function planCode(raw) {
 function makeClassCode(band, until) { const body = AL[BANDS.indexOf(band)] + b32(until, 3) + b32(Math.floor(Math.random() * 1024), 2); return `CL-${body}-${chk3("CL", body, ":class")}`; }
 
 // what this device and this profile can open
-const famPlan = () => { const f = store.get("family", null); return f && f.until >= today() ? f : null; };
+const famPlan = () => { const L = learner(); if (L && L.family && L.family.until >= today()) return L.family; if (L && L.acct) return null; const f = store.get("family", null); return f && f.until >= today() ? f : null; };
 const campusPlan = (L = learner()) => L && L.campus && L.campus.until >= today() ? L.campus : null;
 const trialPlan = (L = learner()) => L && L.trial && L.trial.until >= today() ? L.trial : null;
 const classPlan = (L = learner()) => L && L.cls && L.cls.until >= today() ? L.cls : null;
@@ -1439,7 +1439,7 @@ function plansPage() { const ck = (t, c = "g") => `<li><i class="ck ${c}">✓</i
   <div class="ppp" role="group" aria-label="Pricing region"><button class="${PPP === "std" ? "on" : ""}" data-ppp="std">Standard (USD)</button><button class="${PPP === "em" ? "on" : ""}" data-ppp="em">🌍 Emerging Markets (50% off)</button></div>
   <div class="plans">
    <div class="plan"><div class="ph"><span class="pk grey">Starter</span><span class="pill">Free forever</span></div><h3>Student Explorer</h3><p class="pp"><b>$0</b></p><p class="muted">Try lessons, games and sandboxes in any browser.</p><hr><ul>${ck("2 starter lessons for every age group")}${ck("Module 1 of every course")}${ck("AI Playground and concept sandboxes")}${ck("Safe space with no adverts")}</ul><button class="btn soft wide" data-signas="Student">Create a free profile</button></div>
-   <div class="plan"><div class="ph"><span class="pk pink">Families and homeschool</span></div><h3>Family Scholar</h3><p class="pp"><b>${money(price("family"))}</b> / month</p><p class="muted">Up to 3 children, all four age groups from 5-7 to 15-18.</p><hr><ul>${ck("Every lesson, slide and lab in every course", "p")}${ck("Portfolios with photos and feedback", "p")}${ck("A profile and progress for each child", "p")}</ul><button class="btn pinkb wide" data-signas="Parent or carer">Sign up as a parent</button><a class="small" style="margin-top:8px" href="${CONTACT}" target="_blank" rel="noopener">Buy the Family plan</a></div>
+   <div class="plan"><div class="ph"><span class="pk pink">Families and homeschool</span></div><h3>Family Scholar</h3><p class="pp"><b>${money(price("family"))}</b> / month</p><p class="muted">Up to 3 children, all four age groups from 5-7 to 15-18.</p><hr><ul>${ck("Every lesson, slide and lab in every course", "p")}${ck("Portfolios with photos and feedback", "p")}${ck("A profile and progress for each child", "p")}</ul>${canBuy() ? `<button class="btn pinkb wide" data-buy="family">Get the Family plan</button>` : `<button class="btn pinkb wide" data-signas="Parent or carer">Sign up as a parent</button><a class="small" style="margin-top:8px" href="${CONTACT}" target="_blank" rel="noopener">Buy the Family plan</a>`}</div>
    <div class="plan dark"><span class="ribbon">Most impact</span><span class="pk gold">Schools and districts</span><h3>Campus and District</h3><p class="pp"><b>${money(price("school"))}</b> / student / year</p><p>Full access for whole classes, with teacher materials and training.</p><hr><ul>${ck("Class codes: students join in seconds", "y")}${ck("Lesson plans, slides, rubrics and answer keys", "y")}${ck("Review student work with rubric scores", "y")}${ck("Google Classroom and Drive hand-in links", "y")}${ck("Free 30-day class trial", "y")}</ul><button class="btn white wide" data-signas="Teacher">Start a free class trial</button><a class="small" style="margin-top:8px;color:#FFD3EC" href="${CONTACT}" target="_blank" rel="noopener">Request a school quote</a></div>
    <div class="plan"><span class="pk orange">Teacher training and grants</span><h3>Educator PD</h3><p class="pp"><b>${money(price("pd"))}</b> / teacher certificate</p><p class="muted">Train your teachers, or sponsor a school that cannot pay.</p><hr><ul>${ck("IFISA Certified AI Educator credential", "o")}${ck("20 PD hours, live or self-paced", "o")}${ck("Buy one, give one to a partner school", "o")}</ul><a class="btn goldb wide" href="${CONTACT}" target="_blank" rel="noopener">Enrol teachers or sponsor</a></div></div>
   <p class="small muted" style="margin-top:14px">Prices in US dollars. Emerging Markets pricing is for schools and families in eligible countries. Already paid? <a href="#" data-unlock="1">Enter your code</a>. Single course packs are on the <a href="#shop">shop page</a>.</p></section>
@@ -1450,7 +1450,7 @@ function plansPage() { const ck = (t, c = "g") => `<li><i class="ck ${c}">✓</i
     <div class="roir"><b>Number of students</b><b class="roin" id="roiN">${n.toLocaleString()} students</b></div><input type="range" id="roiS" min="25" max="5000" step="25" value="${n}" aria-label="Number of students"><div class="roil"><span>25 (one class)</span><span>5,000+ (district)</span></div>
     <div class="roig"><div><span>Yearly site licence</span><b id="roiT">${money(total)}</b><em id="roiP">${money(+r.toFixed(2))} per student per year</em></div><div><span>Volume pricing</span><b class="y" id="roiV">${n >= 1000 ? "40% off" : n >= 250 ? "25% off" : "Standard"}</b><em>250+ students save 25%, 1,000+ save 40%</em></div></div>
     <ul class="roic"><li>✓ Slides, lesson plans and rubrics ready to teach</li><li>✓ Teacher training seats for every school</li><li>✓ Runs in the browser</li></ul>
-    <a class="btn hot wide" href="${CONTACT}" target="_blank" rel="noopener">Get a quote for your school</a></div></section>
+    ${canBuy() ? `<button class="btn hot wide" data-buy="campus" id="roiBuy">Buy for ${n.toLocaleString()} students</button><a class="small" style="display:block;text-align:center;margin-top:10px;color:#C9C3E0" href="${CONTACT}" target="_blank" rel="noopener">Need an invoice or a quote? Contact us</a>` : `<a class="btn hot wide" href="${CONTACT}" target="_blank" rel="noopener">Get a quote for your school</a>`}</div></section>
   <section class="lsec" id="screen-time"><span class="tag purple">Purposeful screen time</span><h2>A lab tool, not a screen to stare at</h2><p class="muted" style="max-width:860px">Schools are cutting passive screen time. IFISA is built for short, hands-on inquiry where the screen is used for one job: running the experiment.</p>
   <div class="two">${[["🧪", "A lab tool, not a textbook", "Like a science lab cart, students open IFISA for a focused inquiry block of about 30 minutes to fit a trend line or train a model. No feeds, no scrolling, no adverts."], ["📄", "Print first, screen second", "Lessons start with teacher-led talk, printable data cards and hands-on sorting. Students open the browser only for the modelling step."], ["🎯", "Fits protected budgets", "Built for computer science, data science and STEM pathways, where AI literacy is now part of the standards many states and countries require."], ["👀", "Teacher-led and safe", "No adverts, feeds or social features. Teachers set up the class, review the work and decide when screens are on."]].map(([i, t, d]) => `<div class="fcard"><i>${i}</i><div><b>${t}</b><p>${d}</p></div></div>`).join("")}</div></section>
   <section class="lsec sponsor"><div><span class="tag pink">Sponsor-a-School</span><h2>Help every school learn AI Literacy</h2><p class="muted">Companies and foundations can pay for licences and teacher training for schools that cannot. Sponsors get updates from the classrooms they support.</p></div><a class="btn" href="${CONTACT}" target="_blank" rel="noopener">Become a sponsor</a></section></div>`; }
@@ -1481,10 +1481,142 @@ document.addEventListener("submit", (e) => { const f = e.target;
   if (f.id === "mkClass") { e.preventDefault(); const L = learner(), name = $("#mcN").value.trim(), until = campusPlan(L) ? L.campus.until : trialPlan(L) ? L.trial.until : null;
     if (!mcBand) { $("#mcErr").textContent = "Please choose an age group."; return; } if (!until) return;
     (L.classes = L.classes || []).unshift({ name: name.slice(0, 40), band: mcBand, code: makeClassCode(mcBand, until), until }); mcBand = null; saveMe(); render(); toast("Class code ready. Share it with your students."); } });
-document.addEventListener("input", (e) => { if (e.target.id === "roiS") { ROI.n = +e.target.value; const r = tierRate(ROI.n); $("#roiN").textContent = ROI.n.toLocaleString() + " students"; $("#roiT").textContent = money(Math.round(ROI.n * r)); $("#roiP").textContent = money(+r.toFixed(2)) + " per student per year"; $("#roiV").textContent = ROI.n >= 1000 ? "40% off" : ROI.n >= 250 ? "25% off" : "Standard"; } });
+document.addEventListener("input", (e) => { if (e.target.id === "roiS") { ROI.n = +e.target.value; const r = tierRate(ROI.n); $("#roiN").textContent = ROI.n.toLocaleString() + " students"; $("#roiT").textContent = money(Math.round(ROI.n * r)); $("#roiP").textContent = money(+r.toFixed(2)) + " per student per year"; $("#roiV").textContent = ROI.n >= 1000 ? "40% off" : ROI.n >= 250 ? "25% off" : "Standard"; if ($("#roiBuy")) $("#roiBuy").textContent = "Buy for " + ROI.n.toLocaleString() + " students"; } });
 function agePage() { const L = learner(), cur = L ? L.ages : null, st = !L || L.role === "Student";
   return `<div class="crumbs"><a href="#home">Home</a> <span>/ Age group</span></div><span class="eyebrow">Age group</span><h1>${st ? "How old are you?" : "Which age group do you want to see?"}</h1><p class="muted">${st ? "Pick your age group. Your courses, free lessons and games change to match." : "Pick an age group, or All ages to see every course and the teacher PD."}</p>
   <div class="ages mini" style="margin-top:16px">${AGES.map(([n, a, nm, v]) => `<button class="age ${cur === a ? "on" : ""}" data-setage="${a}"><div class="pic"><img src="visuals/${v}.webp" alt=""></div><div class="t"><b>Ages ${a}</b><span>${nm}</span></div></button>`).join("")}${st ? "" : `<button class="age teacher ${cur === "all" ? "on" : ""}" data-setage="all"><div class="t"><b>All ages</b><span>Every course and teacher PD</span></div></button>`}</div>`; }
+
+// ---------- Online accounts (only when the IFISA server is present; otherwise the app works on this device only)
+let ONLINE = false, HEALTH = null, syncT = null, roster = {};
+const canBuy = () => !!(ONLINE && HEALTH && HEALTH.stripe);
+const tokOf = (L = learner()) => L && L.tok ? L.tok : null;
+async function api(path, method = "GET", body, tok = tokOf()) {
+  const r = await fetch("api/" + path, { method, cache: "no-store", headers: { "content-type": "application/json", ...(tok ? { authorization: "Bearer " + tok } : {}) }, body: body ? JSON.stringify(body) : undefined });
+  let j = {}; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) { const e = new Error(j.error || "Something went wrong. Please try again."); e.status = r.status; throw e; } return j; }
+const authInit = () => tokOf() ? { headers: { authorization: "Bearer " + tokOf() } } : {};
+async function initOnline() {
+  try { if (location.protocol !== "https:" && location.hostname !== "127.0.0.1" && location.hostname !== "localhost") return;
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 4000);
+    const r = await fetch("api/health", { cache: "no-store", signal: ctl.signal }); clearTimeout(t); if (!r.ok) return;
+    const j = await r.json(); if (!j || !j.ok) return; ONLINE = true; HEALTH = j; document.body.classList.add("online");
+    if (tokOf()) await refreshMe(); safeRender();
+  } catch (e) {} }
+function adoptMe(tok, me, extra = {}) {
+  let L = ME.learners.find(l => l.id === me.id);
+  if (!L) { L = { id: me.id, goals: "" }; ME.learners.push(L); }
+  Object.assign(L, extra, { tok, acct: true, name: me.name, role: me.role, ages: me.ages || (me.role === "Student" ? "8-11" : "all"), email: me.email || L.email,
+    cls: me.cls || null, family: me.family || null, campus: me.campus || null, trial: me.trial || null, trialUsed: !!me.trialUsed,
+    classes: me.classes || null, children: me.children || null, school: me.school || "", paid: !!me.paid, parent: me.parent || L.parent || null });
+  (me.courses || []).forEach(c => owned.add(c)); store.set("owned", [...owned]);
+  applyUser(L); return L; }
+async function refreshMe(L = learner()) {
+  if (!ONLINE || !L || !L.tok) return;
+  try { const j = await api("me", "GET", null, L.tok); adoptMe(L.tok, j.me); }
+  catch (e) { if (e.status === 401) { delete L.tok; saveMe(); toast("Please log in again"); } } }
+// progress sync: lessons done, notebooks and game progress (photos stay on the device)
+function collect(L) { const p = L.id + "|"; return { done: [...done].filter(k => k.startsWith(p)).map(k => k.slice(p.length)), notes: ME.notes[p] || {}, aip: (ME.aip || {})[p] || {} }; }
+function syncSoon() { if (!ONLINE) return; clearTimeout(syncT); syncT = setTimeout(async () => { const L = learner(); if (!L || !L.tok) return; const d = collect(L); try { await api("progress", "PUT", { data: d, lessons: d.done.length }, L.tok); } catch (e) {} }, 3000); }
+async function pullProgress(L) { try { const j = await api("progress", "GET", null, L.tok); const d = j.data; if (!d) return syncSoon(); const p = L.id + "|";
+  (d.done || []).forEach(k => done.add(p + k)); store.set("done", [...done]);
+  ME.notes[p] = Object.assign({}, d.notes || {}, ME.notes[p] || {}); ME.aip = ME.aip || {}; ME.aip[p] = Object.assign({}, d.aip || {}, ME.aip[p] || {}); saveMe(); } catch (e) {} }
+{ const _set = store.set; store.set = (k, v) => { _set(k, v); if (k === "done" || k === "me") syncSoon(); }; }
+
+// ---------- online sign in and sign up
+function oTabs(tabs, cur) { return `<div class="otabs" role="tablist">${tabs.map(([k, t]) => `<button type="button" class="${cur === k ? "on" : ""}" data-otab="${k}">${t}</button>`).join("")}</div>`; }
+function onlineSignIn() { const s = signStep, st = s.role === "Student", tab = s.tab || (st ? "join" : "new");
+  if (s.mode === "forgot") return `<section class="signin"><div class="sicard wide"><button class="btn sm ghost" data-otab="login">← Back</button><h1 style="margin-top:12px">Forgot your password?</h1><p class="muted">Type your email. We'll send you a link to choose a new password.</p><form id="oForgot"><label for="ofE">Email</label><input id="ofE" type="email" required autocomplete="email"><div class="err" id="oErr" role="alert"></div><button class="btn" style="margin-top:10px">Send the link</button></form></div></section>`;
+  const back = `<button class="btn sm ghost" data-si="back">← Back</button>`;
+  if (st) {
+    if (tab === "local") return null;
+    return `<section class="signin"><div class="sicard wide">${back}<h1 style="margin-top:12px">${tab === "join" ? "Join your class" : "Welcome back!"}</h1>${oTabs([["join", "Join my class"], ["slog", "Log in"], ["local", "Just try it"]], tab)}
+      <form id="${tab === "join" ? "oJoin" : "oSlog"}"><label for="oC">Class code from your teacher</label><input id="oC" required autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CL-ABC234-XYZ" value="${esc(s.code || "")}" class="codein">
+      <label for="oN">${tab === "join" ? "Your first name" : "Your name"}</label><input id="oN" required maxlength="30" autocomplete="off" value="${esc(s.name || "")}">
+      <label for="oP">${tab === "join" ? "Make a 4-number PIN" : "Your 4-number PIN"}</label><input id="oP" required inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" class="pin" style="max-width:160px">
+      ${tab === "join" ? `<p class="small muted">Remember your PIN. You need it to log in on another device.</p>` : `<p class="small muted">Forgot your PIN? Your teacher can give you a new one.</p>`}
+      <div class="err" id="oErr" role="alert"></div><button class="btn" style="margin-top:10px">${tab === "join" ? "Join my class" : "Log in"}</button></form>
+      <p class="small muted" style="margin-top:14px">👋 If you are under 13, ask a parent, carer or teacher to help you.</p></div></section>`;
+  }
+  const T = s.role === "Teacher";
+  return `<section class="signin"><div class="sicard wide">${back}<h1 style="margin-top:12px">${tab === "new" ? (T ? "Create your teacher account" : "Create your parent account") : "Log in"}</h1>${oTabs([["new", "Create account"], ["login", "Log in"]], tab)}
+    ${tab === "new" ? `<form id="oNew"><label for="oN">Your name</label><input id="oN" required maxlength="40" autocomplete="name">
+      <label for="oE">Email</label><input id="oE" type="email" required autocomplete="email"><label for="oPw">Password (8 or more characters)</label><input id="oPw" type="password" required minlength="8" autocomplete="new-password">
+      ${T ? `<label for="oS">School or centre (optional)</label><input id="oS" maxlength="80" autocomplete="organization">` : ""}
+      <div class="err" id="oErr" role="alert"></div><button class="btn" style="margin-top:10px">Create my account</button><p class="small muted" style="margin-top:10px">🔒 We only use your email to log you in and send receipts. No adverts.</p></form>`
+    : `<form id="oLogin"><label for="oE">Email</label><input id="oE" type="email" required autocomplete="email"><label for="oPw">Password</label><input id="oPw" type="password" required autocomplete="current-password">
+      <div class="err" id="oErr" role="alert"></div><button class="btn" style="margin-top:10px">Log in</button><p class="small" style="margin-top:10px"><a href="#" data-forgot="1">Forgot your password?</a></p></form>`}</div></section>`; }
+function resetPage(tok) { return `<section class="signin"><div class="sicard wide"><h1>Choose a new password</h1><form id="oReset" data-tok="${esc(tok)}"><label for="oPw">New password (8 or more characters)</label><input id="oPw" type="password" required minlength="8" autocomplete="new-password"><div class="err" id="oErr" role="alert"></div><button class="btn" style="margin-top:10px">Save my new password</button></form></div></section>`; }
+function paidPage() { setTimeout(async () => { await refreshMe(); safeRender(); }, 1500);
+  return `<section class="lockpage"><div class="lockic">🎉</div><h1>Thank you!</h1><p class="muted">Your payment went through. Your plan turns on in a few seconds.</p><p><a class="btn" href="#home">Start learning</a> ${learner() && learner().role === "Teacher" ? `<a class="btn ghost" href="#myclass">My classes</a>` : ""}</p></section>`; }
+
+// ---------- online My classes and parent area
+function onlineMyClass() { const L = learner(); if (!L || L.role !== "Teacher" || !L.tok) return null;
+  const cp = campusPlan(L), tp = trialPlan(L), canMake = cp || tp, cls = L.classes || [];
+  return `<div class="crumbs"><a href="#home">Home</a> <span>/ My classes</span></div><span class="eyebrow">For teachers</span><h1>My classes</h1><p class="muted" style="max-width:760px">Make a code for each class. Students type it in with their name and a PIN. You can see who joined and how many lessons each student has done.</p>
+  <div class="mcstat">${cp ? `<span class="pill ok">✓ Campus plan until ${dayStr(cp.until)}${cp.seats ? " · " + cp.seats + " students" : ""}</span>` : tp ? `<span class="pill ok">✓ Free class trial until ${dayStr(tp.until)}</span>` : `<span class="pill">No class plan yet</span>`} ${L.paid ? `<button class="btn sm ghost" data-billing="1">Manage payments</button>` : ""}</div>
+  ${canMake ? `<div class="mccard"><h2>Make a class code</h2><form id="mkClass"><label for="mcN">Class name</label><input id="mcN" maxlength="40" placeholder="For example: Year 4 Blue" required>
+    <label>Age group</label><div class="ages mini">${AGES.map(([n, a, nm, v]) => `<button type="button" class="age" data-mcband="${a}"><div class="pic"><img src="visuals/${v}.webp" alt=""></div><div class="t"><b>Ages ${a}</b><span>${nm}</span></div></button>`).join("")}<button type="button" class="age teacher" data-mcband="all"><div class="t"><b>All ages</b><span>Mixed-age club</span></div></button></div>
+    <div class="err" id="mcErr" role="alert"></div><button class="btn" style="margin-top:10px">Make the code</button></form></div>`
+  : `<div class="mcopts"><div class="mccard"><span class="eyebrow">Try it free</span><h2>30-day class trial</h2><p class="muted">Full access for you and your students for 30 days. No payment needed.</p>${L.trialUsed ? `<p class="small muted">You have already used your free trial.</p>` : `<button class="btn" data-trial="1">Start my free trial</button>`}</div>
+    <div class="mccard"><span class="eyebrow">Campus and District</span><h2>${money(price("school"))} per student per year</h2><p class="muted">Every lesson, slide deck, lesson plan and rubric, and class codes for all your classes.</p>${canBuy() ? `<label for="seatN" style="display:block;font-weight:700;margin:8px 0 4px">How many students?</label><input id="seatN" type="number" min="25" max="20000" value="${Math.max(25, ROI.n)}" style="max-width:140px"> <button class="btn" data-buy="campus">Buy online</button><p class="small muted" style="margin-top:12px">Paid by invoice? Enter your Campus code:</p>` : ""}${codeBox("campusCode", "CAMPUS-XXXXXX-XXX", "Activate")}</div></div>`}
+  ${cls.length ? `<h2 style="margin-top:28px">Your classes</h2><div class="clist">${cls.map(k => { const live = k.until >= today(), r = roster[k.id]; return `<div class="ccard ${live ? "" : "old"}" style="display:block"><div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center"><div><b>${esc(k.name)}</b><span class="small muted"> · ${k.band === "all" ? "All ages" : "Ages " + esc(k.band)} · ${k.students} student${k.students === 1 ? "" : "s"}</span><div class="ccode">${esc(k.code)}</div><span class="small ${live ? "muted" : "err"}">${live ? "Works until " + dayStr(k.until) : "Ended. Add a plan to open it again."}</span></div>
+    <div class="cbtns"><button class="btn sm" data-copycode="${esc(k.code)}">Copy code</button><button class="btn sm ghost" data-copyinv2="${esc(k.id)}">Copy message for students</button><button class="btn sm ghost" data-roster="${esc(k.id)}">${r ? "Hide students" : "See students"}</button><button class="btn sm ghost" data-delcls="${esc(k.id)}">Remove</button></div></div>
+    ${r ? `<div class="roster">${r.length ? `<table><thead><tr><th>Student</th><th>Lessons done</th><th>Last active</th><th></th></tr></thead><tbody>${r.map(x => `<tr><td><b>${esc(x.name)}</b></td><td>${x.lessons}</td><td>${x.last_seen ? new Date(x.last_seen).toLocaleDateString() : "-"}</td><td style="white-space:nowrap"><button class="btn sm ghost" data-newpin="${esc(k.id)}|${esc(x.id)}|${esc(x.name)}">New PIN</button> <button class="btn sm ghost" data-rmstu="${esc(k.id)}|${esc(x.id)}|${esc(x.name)}">Remove</button></td></tr>`).join("")}</tbody></table>` : `<p class="small muted">No students yet. Share the code with your class.</p>`}</div>` : ""}</div>`; }).join("")}</div>` : ""}`; }
+function onlineParentCard(L) { const fam = famPlan(), kids = L.children || [];
+  return `<section class="acard ${fam ? "on" : ""}" style="display:block"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><div>${fam ? `<span class="pill ok">✓ Family plan until ${dayStr(fam.until)}</span>` : `<span class="eyebrow">Family Scholar · ${money(price("family"))} a month</span>`}<h3>Your children</h3></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">${!fam && canBuy() ? `<button class="btn" data-buy="family">Get the Family plan</button>` : ""}${L.paid ? `<button class="btn ghost sm" data-billing="1">Manage payments</button>` : ""}</div></div>
+    ${kids.length ? `<div class="kids">${kids.map(k => `<button class="learner" data-openkid="${esc(k.id)}"><span class="av">${esc(k.name[0].toUpperCase())}</span><span style="text-align:left"><b>${esc(k.name)}</b><br><span class="small muted">Ages ${esc(k.ages)} · tap to start</span></span></button>`).join("")}</div>` : `<p class="small muted">Add a profile for each child. Their progress is saved to your account.</p>`}
+    <form id="oKid" class="kidform"><input id="okN" maxlength="30" placeholder="Child's first name" required><select id="okA" aria-label="Age group">${AGES.map(a => `<option value="${a[1]}">Ages ${a[1]}</option>`).join("")}</select><button class="btn">+ Add child</button></form><div class="err" id="okErr" role="alert"></div>
+    ${!fam ? `<p class="small muted" style="margin-top:8px">Have a Family code?</p>${codeBox("famCode", "FAM-XXXXXX-XXX", "Unlock")}` : ""}</section>`; }
+
+// ---------- swap in the online versions when the server is present
+{ const _si = signInPage; signInPage = function () { if (ONLINE && signStep.role && !signStep.pinFor) { const h = onlineSignIn(); if (h) return h; } return _si(); }; }
+{ const _mc = myClassPage; myClassPage = function () { if (ONLINE) { const h = onlineMyClass(); if (h) return h; } return _mc(); }; }
+{ const _ac = accessCard; accessCard = function () { const L = learner(); if (ONLINE && L && L.tok && L.role === "Parent or carer") return onlineParentCard(L); return _ac(); }; }
+{ const _jw = joinWith; joinWith = async function (code, errId) { const L = learner(), r = planCode(code), err = $("#" + errId + "Err"), fail = (t) => { if (err) err.textContent = t; else toast(t); };
+    if (!ONLINE) return _jw(code, errId);
+    if (r && r.kind === "class") { if (L && L.tok && L.role === "Student") return fail("You are already in a class. Ask your teacher if you need to move."); signStep = { role: "Student", tab: "join", code: r.code, name: L && L.role === "Student" ? L.name : "" }; location.hash = "#signin"; render(); return; }
+    const pre = String(code || "").trim().toUpperCase();
+    if (!L || !L.tok || L.role === "Student") { if (/^(FAM|CAMPUS)/.test(pre)) return fail(pre.startsWith("FAM") ? "Log in to a parent account first, then add your Family code." : "Log in to a teacher account first, then add your Campus code."); return _jw(code, errId); }
+    try { const j = await api("redeem", "POST", { code }); adoptMe(L.tok, j.me); render(); toast(j.kind === "family" ? "Family plan on!" : j.kind === "campus" ? "Campus plan on for one year" : "Course unlocked"); } catch (e) { fail(e.message); } }; }
+
+async function goCheckout(plan) { const L = learner();
+  if (!L || !L.tok) { signStep = { role: plan === "campus" ? "Teacher" : "Parent or carer", tab: "new" }; location.hash = "#signin"; render(); toast("Create a free account first, then buy your plan"); return; }
+  if (plan === "campus" && L.role !== "Teacher") return toast("The Campus plan is for teacher accounts");
+  if (plan === "family" && L.role !== "Parent or carer") return toast("The Family plan is for parent accounts");
+  const seats = plan === "campus" ? +(($("#seatN") || {}).value || ROI.n || 25) : 1;
+  try { toast("Opening secure checkout…"); const j = await api("checkout", "POST", { plan, region: PPP, seats }); location.href = j.url; } catch (e) { toast(e.message); } }
+async function onlineDone(tok, me, dest) { const L = adoptMe(tok, me); signStep = {}; await pullProgress(L); location.hash = dest || "#home"; render(); window.scrollTo(0, 0); toast("Welcome, " + L.name + "!"); }
+function onlineClick(t) {
+  if (t.dataset.otab) { signStep.tab = t.dataset.otab; signStep.mode = null; if (t.dataset.otab === "local") { signStep.local = true; } render(); return true; }
+  if (t.dataset.forgot) { signStep.mode = "forgot"; render(); return true; }
+  if (t.dataset.buy) { goCheckout(t.dataset.buy); return true; }
+  if (t.dataset.billing) { api("billing", "POST", {}).then(j => location.href = j.url, e => toast(e.message)); return true; }
+  if (!ONLINE) return false;
+  const L = learner();
+  if (t.dataset.signout && L && L.tok) { api("logout", "POST", {}).catch(() => {}); tStop(); ME.learners = ME.learners.filter(x => x.id !== L.id); ME.active = null; saveMe(); signStep = { role: null }; location.hash = "#home"; render(); toast("Logged out"); return true; }
+  if (t.dataset.trial && L && L.tok) { api("trial", "POST", {}).then(j => { adoptMe(L.tok, j.me); render(); toast("Your 30-day class trial has started"); }, e => toast(e.message)); return true; }
+  if (t.dataset.roster) { const id = t.dataset.roster; if (roster[id]) { delete roster[id]; render(); return true; } api("classes/" + id + "/students").then(j => { roster[id] = j.students; render(); }, e => toast(e.message)); return true; }
+  if (t.dataset.delcls) { if (!t.dataset.sure) { t.dataset.sure = 1; t.textContent = "Tap again to remove the class"; return true; } api("classes/" + t.dataset.delcls, "DELETE").then(j => { adoptMe(L.tok, j.me); render(); toast("Class removed"); }, e => toast(e.message)); return true; }
+  if (t.dataset.copyinv2) { const k = (L.classes || []).find(c => c.id === t.dataset.copyinv2); if (k) copyText(`Join our class on IFISA Academy!\n1. Open ${location.origin}\n2. Tap "I'm a student", then "Join my class".\n3. Type our class code: ${k.code}\n4. Type your first name and make a 4-number PIN. Remember it!`, "Message copied. Paste it into your class page or email."); return true; }
+  if (t.dataset.newpin) { const [cid, sid, nm] = t.dataset.newpin.split("|"), pin = prompt("New 4-number PIN for " + nm + ":"); if (!pin) return true; api("classes/" + cid + "/students/" + sid + "/pin", "POST", { pin }).then(() => toast("New PIN saved. Tell " + nm + " their new PIN."), e => toast(e.message)); return true; }
+  if (t.dataset.rmstu) { const [cid, sid, nm] = t.dataset.rmstu.split("|"); if (!t.dataset.sure) { t.dataset.sure = 1; t.textContent = "Tap again"; return true; } api("classes/" + cid + "/students/" + sid, "DELETE").then(() => { roster[cid] = (roster[cid] || []).filter(x => x.id !== sid); refreshMe().then(render); toast(nm + " removed from the class"); }, e => toast(e.message)); return true; }
+  if (t.dataset.openkid && L && L.tok) { const parentTok = L.tok, pid = L.id; api("children/" + t.dataset.openkid + "/open", "POST", {}).then(j => { adoptMe(j.token, j.me, { parent: pid }); pullProgress(learner()).then(() => { location.hash = "#home"; render(); toast("Hi " + j.me.name + "!"); }); }, e => toast(e.message)); return true; }
+  return false; }
+document.addEventListener("submit", async (e) => { const f = e.target; if (!ONLINE || !["oJoin", "oSlog", "oNew", "oLogin", "oForgot", "oReset", "oKid", "mkClass"].includes(f.id)) return;
+  if (f.id === "mkClass" && !tokOf()) return;
+  e.preventDefault(); e.stopImmediatePropagation(); const er = $("#oErr") || $("#mcErr") || $("#okErr"), btn = f.querySelector("button:not([type=button])"); if (er) er.textContent = ""; if (btn) btn.disabled = true;
+  const v = (id) => ($("#" + id) || {}).value || "";
+  try {
+    if (f.id === "oJoin") { const j = await api("student/join", "POST", { code: v("oC"), name: v("oN"), pin: v("oP") }, null); await onlineDone(j.token, j.me); }
+    else if (f.id === "oSlog") { const j = await api("student/login", "POST", { code: v("oC"), name: v("oN"), pin: v("oP") }, null); await onlineDone(j.token, j.me); }
+    else if (f.id === "oNew") { const j = await api("signup", "POST", { name: v("oN"), email: v("oE"), password: v("oPw"), role: signStep.role, school: v("oS"), ages: "all" }, null); await onlineDone(j.token, j.me, signStep.role === "Teacher" ? "#myclass" : "#home"); }
+    else if (f.id === "oLogin") { const j = await api("login", "POST", { email: v("oE"), password: v("oPw") }, null); await onlineDone(j.token, j.me, j.me.role === "Teacher" ? "#myclass" : "#home"); }
+    else if (f.id === "oForgot") { const j = await api("forgot", "POST", { email: v("ofE") }, null); if (j.ok) { er.textContent = ""; toast("If that email has an account, a reset link is on its way"); signStep.mode = null; signStep.tab = "login"; render(); } else er.textContent = "Password reset by email is not switched on yet. Please contact IFISA Academy."; }
+    else if (f.id === "oReset") { await api("reset", "POST", { token: f.dataset.tok, password: v("oPw") }, null); toast("Password saved. Please log in."); signStep = { role: "Teacher", tab: "login" }; location.hash = "#signin"; render(); }
+    else if (f.id === "oKid") { const L = learner(), j = await api("children", "POST", { name: v("okN"), ages: v("okA") }); adoptMe(L.tok, j.me); render(); toast("Child profile added"); }
+    else if (f.id === "mkClass") { if (!mcBand) throw new Error("Please choose an age group."); const L = learner(), j = await api("classes", "POST", { name: v("mcN"), band: mcBand }); mcBand = null; adoptMe(L.tok, j.me); render(); toast("Class code ready. Share it with your students."); }
+  } catch (x) { if (er) er.textContent = x.message; else toast(x.message); if (btn) btn.disabled = false; } }, true);
 
 // ------------------------------------------------------------- router
 let jump = null;
@@ -1494,12 +1626,12 @@ function render() {
   document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", h === a.dataset.nav || (a.dataset.nav === "home" && (h.startsWith("c-") || h.startsWith("learn/")))));
   const mm = h.match(/^c-([a-z0-9]+)(?:-(m\d\d))?$/);
   if (D && !learner() && (h === "signin" || signStep.role || signStep.pinFor)) { html = signInPage(); document.title = "Sign in - IFISA Academy"; }
-  else if (D && !learner() && !["demo", "about", "shop", "feedback", "plans", "myclass"].includes(h)) { html = landingPage(); document.title = "IFISA Academy - Data Science and AI Literacy"; }
+  else if (D && !learner() && !["demo", "about", "shop", "feedback", "plans", "myclass"].includes(h) && !h.startsWith("reset/")) { html = landingPage(); document.title = "IFISA Academy - Data Science and AI Literacy"; }
   else if (h === "demo") { html = filmPage(); FM = { i: 0, playing: false, muted: FM.muted, timer: null, tr: FM.tr === lang ? lang : null }; setTimeout(() => filmDo("title"), 30); }
   else if (h === "search" && q) html = searchPage(q);
   else if (mm && course(mm[1])) { const c = course(mm[1]); const m = mm[2] && c.modules.find(x => x.id === mm[2]); html = m ? modulePage(c, m) : coursePage(c); document.title = (m ? modName(m) + " - " : "") + c.short + " - IFISA Academy Projects"; }
   else if (h.startsWith("learn/")) { const [, cid, mid, key] = h.split("/"); const f = findLesson(cid, mid, decodeURIComponent(key || "")); html = f ? (canLearn(f.c, f.c.modules.indexOf(f.m), f.it) ? coachPage(f.c, f.m, f.it) : learnLock(f.c, f.m, f.it)) : home(); if (f) document.title = f.it.title + " - Learn - IFISA Academy Projects"; }
-  else if (h === "plans") { html = plansPage(); document.title = "Plans - IFISA Academy"; } else if (h === "myclass") { html = myClassPage(); document.title = "My classes - IFISA Academy"; } else if (h === "age") html = agePage(); else if (h === "review") html = reviewPage(); else if (h === "feedback") html = feedbackPage(); else if (h === "insights") html = insightsPage();
+  else if (h === "paid") html = paidPage(); else if (h.startsWith("reset/")) html = resetPage(h.slice(6)); else if (h === "plans") { html = plansPage(); document.title = "Plans - IFISA Academy"; } else if (h === "myclass") { html = myClassPage(); document.title = "My classes - IFISA Academy"; } else if (h === "age") html = agePage(); else if (h === "review") html = reviewPage(); else if (h === "feedback") html = feedbackPage(); else if (h === "insights") html = insightsPage();
   else if (h === "ai") html = aiHome(); else if (h.startsWith("ai/")) { html = aiGame(h.slice(3)); }
   else if (h === "quiz" || h.startsWith("quiz/")) html = quizPage(h); else if (h === "play") html = playPage();
   else if (h === "labs") html = labsPage(); else if (h === "rubrics") html = rubricsPage(); else if (h === "library") html = libraryPage(); else if (h === "about") html = aboutPage(); else if (h === "me") html = mePage(); else if (h === "shop") html = shopPage();
@@ -1515,7 +1647,7 @@ function showSlide(c, m) { const img = $("#slideImg"); if (!img) return; img.set
   document.querySelectorAll("#thumbs .tb").forEach((t, k) => t.classList.toggle("on", k === slideIdx)); const on = $("#thumbs .tb.on"); if (on) on.scrollIntoView({ block: "nearest", inline: "center" }); }
 document.addEventListener("click", (e) => {
   const t = e.target.closest("button,a"); if (!t) return;
-  if (accessClick(t) || insightsClick(t) || reviewClick(t) || landingClick(t) || langClick(t) || signinClick(t) || filmClick(t) || aiClick(t)) return;
+  if (onlineClick(t) || accessClick(t) || insightsClick(t) || reviewClick(t) || landingClick(t) || langClick(t) || signinClick(t) || filmClick(t) || aiClick(t)) return;
   { const lm = $("#langMenu"); if (lm && !lm.contains(t)) lm.remove(); }
   if (t.dataset.dga) { dgAct(t.dataset.dgk, t.dataset.dga); return; }
   if (quizClick(t)) return;
@@ -1548,7 +1680,7 @@ document.addEventListener("click", (e) => {
   else if (t.dataset.age) { if (t.dataset.age === "change") { location.hash = "#age"; } else { age = t.dataset.age; store.set("age", age); filter = 0; render(); window.scrollTo(0, 0); } }
   else if (t.dataset.unlock) { $("#unlock").classList.add("open"); $("#cerr").textContent = ""; $("#code").value = ""; setTimeout(() => $("#code").focus(), 30); }
   else if (t.id === "ccancel") $("#unlock").classList.remove("open");
-  else if (t.id === "cok") { const pc = planCode($("#code").value); if (pc) { $("#unlock").classList.remove("open"); joinWith($("#code").value, "code"); return; } const r = checkCode($("#code").value); if (!r) { $("#cerr").textContent = "That code does not look right. Check it and try again."; return; }
+  else if (t.id === "cok") { const pc = planCode($("#code").value); if (pc || (ONLINE && tokOf())) { $("#unlock").classList.remove("open"); joinWith($("#code").value, "code"); return; } const r = checkCode($("#code").value); if (!r) { $("#cerr").textContent = "That code does not look right. Check it and try again."; return; }
     owned.add(r); store.set("owned", [...owned]); $("#unlock").classList.remove("open"); toast(r === "ALL" ? "All course packs unlocked" : course(r).short + " unlocked"); render(); }
   else if (t.id === "msBtn") { const b = $("#sbox"); b.classList.toggle("open"); t.setAttribute("aria-expanded", b.classList.contains("open")); if (b.classList.contains("open")) $("#q2").focus(); }
   else if (t.id === "menuBtn") { const n = $("#nav"); n.classList.toggle("open"); t.setAttribute("aria-expanded", n.classList.contains("open")); }
@@ -1593,7 +1725,7 @@ window.addEventListener("error", e => { if (!D) showRescue("The app could not st
   const timer = setTimeout(() => ctl && ctl.abort(), 15000);
   fetch("data.json?v=" + Date.now(), { cache: "no-store", signal: ctl ? ctl.signal : undefined })
     .then(r => { clearTimeout(timer); if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(d => { D = d; if (CFG.tutorUrl) D.tutorUrl = CFG.tutorUrl; safeRender(); })
+    .then(d => { D = d; if (CFG.tutorUrl) D.tutorUrl = CFG.tutorUrl; safeRender(); initOnline(); })
     .catch(e => { clearTimeout(timer); console.error("data load failed", e); if (tries < 2) setTimeout(() => loadData(tries + 1), 800); else showRescue("The course data could not load."); });
 })(0);
 // Remove any old offline helper and its cache so stale files never load again.
