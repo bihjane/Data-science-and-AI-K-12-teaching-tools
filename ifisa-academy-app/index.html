@@ -265,6 +265,13 @@ let D = null, downloads = null, filter = 0, modTab = "lessons", slideIdx = 0;
 const TYPE = { lesson: "Lesson", lab: "Colab lab", project: "Project", assignment: "Assignment", quiz: "Module check", page: "Overview", discussion: "Discussion" };
 const store = { get(k, d) { try { return JSON.parse(localStorage.getItem("ifisa-app-" + k)) ?? d; } catch { return d; } }, set(k, v) { try { localStorage.setItem("ifisa-app-" + k, JSON.stringify(v)); } catch {} } };
 let ME = store.get("me", { learners: [], active: null, notes: {}, portfolio: {} });
+(function fixME() { const ok = ["5-7", "8-11", "12-14", "15-18", "all"];
+  if (!ME || typeof ME !== "object") ME = {};
+  if (!Array.isArray(ME.learners)) ME.learners = [];
+  ME.learners = ME.learners.filter(l => l && typeof l === "object" && l.id && typeof l.name === "string").map(l => (ok.includes(l.ages) ? l : Object.assign(l, { ages: "8-11" })));
+  if (!ME.learners.some(l => l.id === ME.active)) ME.active = null;
+  for (const k of ["notes", "portfolio"]) if (!ME[k] || typeof ME[k] !== "object") ME[k] = {};
+})();
 const saveMe = () => store.set("me", ME);
 const learner = () => ME.learners.find(l => l.id === ME.active) || null;
 const LK = () => (learner() ? learner().id : "me") + "|";
@@ -1354,7 +1361,7 @@ function render() {
   if (jump) { const el = document.getElementById(jump); jump = null; if (el) { el.scrollIntoView({ block: "start" }); window.scrollBy(0, -80); return; } }
 }
 let lastHash = null;
-window.addEventListener("hashchange", () => { const h = location.hash; if (h === "#insights") INS = null; if (!/^#c-[a-z0-9]+-m\d\d$/.test(h) || h !== lastHash) { modTab = jump ? "lessons" : "lessons"; slideIdx = 0; } lastHash = h; render(); if (!jump) window.scrollTo(0, 0); $("#nav").classList.remove("open"); });
+window.addEventListener("hashchange", () => { const h = location.hash; if (h === "#insights") INS = null; if (!/^#c-[a-z0-9]+-m\d\d$/.test(h) || h !== lastHash) { modTab = jump ? "lessons" : "lessons"; slideIdx = 0; } lastHash = h; safeRender(); if (!jump) window.scrollTo(0, 0); $("#nav").classList.remove("open"); });
 function go(d) { const mm = location.hash.match(/^#c-([a-z0-9]+)-(m\d\d)$/); if (!mm) return; const m = course(mm[1]).modules.find(x => x.id === mm[2]); const cc = course(mm[1]), lim = isOpen(cc, cc.modules.indexOf(m)) ? m.slides : Math.min(3, m.slides); slideIdx = Math.max(0, Math.min(lim - 1, slideIdx + d)); if (lim < m.slides && slideIdx === lim - 1 && d > 0) toast("Unlock the course pack to see every slide"); showSlide(course(mm[1]), m); }
 function showSlide(c, m) { const img = $("#slideImg"); if (!img) return; img.setAttribute("style", sbg(c, m, slideIdx + 1)); img.setAttribute("aria-label", `Slide ${slideIdx + 1} of ${m.slides}`); $("#count").textContent = `${slideIdx + 1} / ${m.slides}`;
   document.querySelectorAll("#thumbs .tb").forEach((t, k) => t.classList.toggle("on", k === slideIdx)); const on = $("#thumbs .tb.on"); if (on) on.scrollIntoView({ block: "nearest", inline: "center" }); }
@@ -1411,8 +1418,37 @@ document.addEventListener("keydown", (e) => { if (!$("#slideImg") || /input|text
 $("#q2").addEventListener("input", () => { $("#q").value = $("#q2").value; $("#q").dispatchEvent(new Event("input")); });
 $("#q").addEventListener("input", () => { const q = $("#q").value.trim(); if (q.length >= 2) { if (location.hash !== "#search") location.hash = "search"; else render(); } });
 let CFG = {}; fetch("config.json").then(r => r.ok ? r.json() : {}).then(c => { CFG = c || {}; if (D && CFG.tutorUrl) D.tutorUrl = CFG.tutorUrl; }).catch(() => {});
-fetch("data.json").then(r => r.json()).then(d => { D = d; if (CFG.tutorUrl) D.tutorUrl = CFG.tutorUrl; render(); }).catch(() => { $("#app").innerHTML = `<div class="empty">The course data could not load. Please reload the page.</div>`; });
-try { if (window.self === window.top && "serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {}); } catch {}
+function resetApp() {
+  try { Object.keys(localStorage).filter(k => k.startsWith("ifisa-app-")).forEach(k => localStorage.removeItem(k)); } catch {}
+  try { if ("caches" in window) caches.keys().then(ks => ks.forEach(k => caches.delete(k))); } catch {}
+  try { navigator.serviceWorker && navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())); } catch {}
+  setTimeout(() => { location.hash = ""; location.reload(); }, 300);
+}
+function showRescue(msg) {
+  const app = $("#app"); if (!app) return;
+  app.innerHTML = `<div class="empty" style="max-width:520px;margin:40px auto;text-align:center"><h2>Oops, something got stuck</h2><p>${esc(msg)}</p><p><button class="btn" id="rescueReload" type="button">Try again</button> <button class="btn" id="rescueReset" type="button">Reset the app</button></p><p class="small muted">Reset clears saved settings on this device only. Photos in portfolios are kept.</p></div>`;
+  $("#rescueReload").onclick = () => location.reload();
+  $("#rescueReset").onclick = resetApp;
+}
+function safeRender() {
+  try { render(); }
+  catch (e) {
+    console.error("render failed", e);
+    if (!safeRender.retried) { safeRender.retried = true; try { ME = { learners: [], active: null, notes: ME && ME.notes || {}, portfolio: ME && ME.portfolio || {} }; store.set("me", ME); age = null; store.set("age", null); history.replaceState(null, "", "#home"); render(); return; } catch (e2) { console.error(e2); } }
+    showRescue("The page could not open. Tap Try again, or reset the app.");
+  }
+}
+window.addEventListener("error", e => { if (!D) showRescue("The app could not start."); });
+(function loadData(tries) {
+  const ctl = "AbortController" in window ? new AbortController() : null;
+  const timer = setTimeout(() => ctl && ctl.abort(), 15000);
+  fetch("data.json?v=" + Date.now(), { cache: "no-store", signal: ctl ? ctl.signal : undefined })
+    .then(r => { clearTimeout(timer); if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(d => { D = d; if (CFG.tutorUrl) D.tutorUrl = CFG.tutorUrl; safeRender(); })
+    .catch(e => { clearTimeout(timer); console.error("data load failed", e); if (tries < 2) setTimeout(() => loadData(tries + 1), 800); else showRescue("The course data could not load."); });
+})(0);
+// Remove any old offline helper and its cache so stale files never load again.
+try { if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {}); if ("caches" in window) caches.keys().then(ks => ks.forEach(k => caches.delete(k))).catch(() => {}); } catch {}
 (async () => { try { if (window.claude && claude.use) { claude.use("sample").then(x => { sampler = x; }).catch(() => {}); downloads = await claude.use("downloads"); if (downloads && D) { const y = window.scrollY; render(); window.scrollTo(0, y); } } } catch {} })();
 </script>
 </body>
