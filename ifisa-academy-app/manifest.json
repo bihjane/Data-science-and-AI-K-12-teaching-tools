@@ -1,7 +1,7 @@
 {
- "name": "IFISA Academy Projects: Data Science and AI",
- "short_name": "IFISA Projects",
- "description": "Data Science and AI for Students, ages 5 to 18. IFISA Academy Projects by Dr. Bih Janet Shufor.",
+ "name": "IFISA Academy: Data Science and AI Literacy",
+ "short_name": "IFISA Academy",
+ "description": "Data Science and AI Literacy for ages 5 to 18. Learn AI, Shape Tomorrow. By Dr. Bih Janet Shufor.",
  "start_url": "./index.html",
  "scope": "./",
  "display": "standalone",
